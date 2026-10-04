@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "scope": "reporting_snapshot",
+  "file_name": "portfolio_reporting.csv",
+  "rows": 50441,
+  "unique_clients": 8565,
+  "unique_policies": 50441,
+  "unresolved_rows": 1356,
+  "industry_coverage_pct": 97.3117,
+  "premium_total": "23465362773.10",
+  "premium_by_method": {
+    "client_id": "4653199223.13",
+    "llm_external": "178918077.31",
+    "original": "18164351468.19",
+    "unresolved": "468894004.47"
+  },
+  "method_counts": {
+    "client_id": 16159,
+    "llm_external": 116,
+    "original": 32810,
+    "unresolved": 1356
+  },
+  "confidence_counts": {
+    "high": 48969,
+    "low": 28,
+    "medium_low": 88,
+    "unresolved": 1356
+  },
+  "blank_counts": {
+    "ClientId": 0,
+    "policy_id": 0,
+    "client_name": 0,
+    "state": 0,
+    "municipality": 0,
+    "coverage_type": 0,
+    "industry": 0,
+    "premium": 0,
+    "sum_insured": 0,
+    "policy_start_date": 0,
+    "policy_end_date": 0,
+    "fill_method": 0,
+    "confidence_level": 0
+  },
+  "issues": {},
+  "example_csv_line_numbers": {}
+}

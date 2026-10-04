@@ -1,0 +1,72 @@
+{
+  "contract_version": 1,
+  "encoding": "UTF-8",
+  "delimiter": ",",
+  "columns": [
+    "ClientId",
+    "policy_id",
+    "client_name",
+    "state",
+    "municipality",
+    "coverage_type",
+    "industry",
+    "premium",
+    "sum_insured",
+    "policy_start_date",
+    "policy_end_date",
+    "fill_method",
+    "confidence_level"
+  ],
+  "unresolved_label": "Unresolved",
+  "industry_labels": [
+    "Agricultura",
+    "Alimentos y Bebidas",
+    "Comercio al por Mayor",
+    "Comercio al por Menor",
+    "Construcción",
+    "Educación",
+    "Hotelería y Turismo",
+    "Inmobiliaria",
+    "Manufactura",
+    "Minería",
+    "Salud",
+    "Servicios Financieros",
+    "Servicios Profesionales",
+    "Tecnología",
+    "Transporte y Logística",
+    "Unresolved"
+  ],
+  "confidence_by_method": {
+    "original": [
+      "high"
+    ],
+    "client_id": [
+      "high"
+    ],
+    "llm_external": [
+      "medium_low",
+      "low"
+    ],
+    "unresolved": [
+      "unresolved"
+    ]
+  },
+  "snapshot": {
+    "sha256": "e29678677fe570b57f13aeec85cc51f5e4bcb477b51f5fcc8054794813a905c3",
+    "rows": 50441,
+    "premium_total": "23465362773.10",
+    "method_counts": {
+      "client_id": 16159,
+      "original": 32810,
+      "unresolved": 1356,
+      "llm_external": 116
+    },
+    "confidence_counts": {
+      "high": 48969,
+      "unresolved": 1356,
+      "low": 28,
+      "medium_low": 88
+    },
+    "unique_clients": 8565
+  }
+}
