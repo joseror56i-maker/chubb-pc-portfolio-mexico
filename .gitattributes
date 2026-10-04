@@ -1,0 +1,12 @@
+# Keep the submitted CSV bytes stable on Windows and Linux. Its SHA-256 is audited.
+*.csv -text
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.ipynb text eol=lf
+*.yml text eol=lf
+*.txt text eol=lf
+*.pbix binary
+*.pbit binary
+*.png binary
+*.pdf binary
