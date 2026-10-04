@@ -1,12 +1,13 @@
 # Submission checklist
 
-Assessment requirements are distinguished from user authorization. The repository
-is public at the candidate's request; supplied reporting data has been published.
+The assessment requests exactly six deliverables. Solution code is delivered
+through the public GitHub repository; a handoff folder contains the link,
+README, reporting CSV, quality report, complete dashboard and short write-up.
 
 | Deliverable | Present | Remaining work |
 | --- | --- | --- |
-| Public repository with solution code | Reviewed processing, ML, enrichment and sequential notebooks | Run with original inputs and record actual environment |
-| README | Setup, layout, sequence and limitations | Update after dashboard integration |
+| Public repository with solution code | Reviewed processing, ML, enrichment and sequential notebooks; 31 tests pass | Run optional research and record actual environment |
+| README | Setup, layout, sequence, decisions and assumptions | Present; keep aligned with future changes |
 | Filled dataset with per-row method | Unchanged submitted snapshot | Original lineage reconciled; external evidence audit still separate |
 | Fill quality report | Counts and amounts verified | Rerun corrected research and review external correctness |
 | Interactive premium/growth dashboard | PBIP integrated, portable setup and dependency checks | Desktop refresh/render and preview |
@@ -15,7 +16,8 @@ is public at the candidate's request; supplied reporting data has been published
 Before final submission:
 
 - Validate snapshot and run unit tests from a fresh clone/download.
-- Run the reviewed pipeline on the original dataset and audit source labels and amounts.
+- Original-to-reporting reconciliation has passed for IDs, amounts, dates, original
+  industries, same-client recovery and canonical names.
 - Record Databricks runtime, package versions, seeds, holdout and experiment outputs.
 - Supply/audit the external mapping; treat historical external fills as weak evidence.
 - Open/refresh the packaged dashboard in Desktop and capture an actual preview.

@@ -38,9 +38,9 @@ Historical research scores still require execution in their intended environment
 | `unresolved` | 1,356 | `unresolved` |
 | **Total** | **50,441** | |
 
-The flags imply 17,631 initially missing rows and 16,275 recovered rows (92.31%).
-That reconciliation depends on the supplied provenance flags. Original-label
-preservation and same-client assignments reconcile against the included original.
+The original has 17,631 missing industry rows; the final snapshot recovers 16,275
+(92.31%). Original-label preservation and same-client assignments reconcile against
+the included original. External assignments retain their supplied provenance flags.
 See the [quality report](reports/fill_quality_report.md),
 [short write-up](reports/technical_writeup.md) and [appendix](reports/technical_appendix.md).
 
@@ -132,8 +132,8 @@ workspace capabilities and explicit enablement; see the [runbook](docs/runbook.m
 - Currency is unspecified; **MXN is the candidate's assumption**. No USD conversion
   is established. One client represents 18.41% of premium; keep official totals and
   show a clearly labeled concentration sensitivity if useful.
-- Proposed written-premium timing uses policy start date (2021–2024). Actual DAX,
-  same-period growth and dashboard refresh remain to be reviewed.
+- Written-premium timing uses policy start date (2021–2024). DAX source has been
+  reviewed; its values, same-period growth and refresh still need Desktop execution.
 
 ## Open the dashboard
 

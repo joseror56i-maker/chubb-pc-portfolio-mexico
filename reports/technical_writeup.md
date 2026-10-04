@@ -5,7 +5,7 @@
 The challenge requires industry recovery before a dashboard can reliably compare
 premium and premium growth by industry and location. The supplied final snapshot
 contains 50,441 policies and 8,565 client IDs. Of 17,631 initially missing industry
-values implied by the method flags, 16,275 were recovered. Industry coverage is
+values in the original input, 16,275 were recovered. Industry coverage is
 97.31% of rows. The remaining 1,356 rows are explicitly `Unresolved` and stay in
 portfolio totals.
 
@@ -71,21 +71,21 @@ reported to choose observed variants without inventing semantic business terms.
 In the snapshot, 2,310 exact display names are shared by different client IDs.
 Aggregation or joins by name alone would combine distinct entities.
 
-The largest client has 10,189 policies and contributes 18.41% of premium. Unique
-policy IDs support retaining the records, while the original input is still
-needed to verify lineage and join behavior. Official totals should retain the
+The largest client has 10,189 policies and contributes 18.41% of premium. Original-
+to-reporting reconciliation preserves policy identity and monetary amounts;
+the concentration is present in the original input. Official totals retain the
 client and a separate sensitivity view can explain concentration effects.
 
 The proposed time basis for written premium is policy start date, with complete
 start-date years 2021-2024. End dates extend to 2026 and should not accidentally
 define the growth calendar. Currency is not specified: MXN is an assumption and
-USD measure names would require documented conversion. The Power BI model and
-the project definition and DAX source have been reviewed locally. Desktop execution
+USD measure names would require documented conversion. The Power BI project
+definition and DAX source have been reviewed locally. Desktop execution
 and refresh validation are still pending.
 
 ## Further work
 
-Complete original-data execution and raw-to-final reconciliation, audit external evidence,
+Complete Databricks research execution and audit external evidence,
 and validate Power BI connections, date relationships, totals and growth
 denominators after download. With richer client identifiers, verified business
 attributes or SCIAN/NAICS mappings, rerun the same unseen-client benchmark rather

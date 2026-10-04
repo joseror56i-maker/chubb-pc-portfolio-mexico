@@ -13,7 +13,7 @@ code has now been reviewed; corrected evaluation and acceptance rules require re
 | Unique client IDs | 8,565 |
 | Known industry categories | 15 |
 | Additional unresolved category | `Unresolved` |
-| Initially missing, implied by method flags | 17,631 (34.95%) |
+| Initially missing in the original input | 17,631 (34.95%) |
 | Recovered rows | 16,275 (92.31% of initially missing) |
 | Resolved rows | 49,085 (97.31% of all rows) |
 | Unresolved rows | 1,356 (2.69% of all rows) |
@@ -82,7 +82,10 @@ for final fills; reproduction requires original input, saved evidence and execut
 - Method/confidence combinations and unresolved labels consistent.
 - One reporting name and no conflicting industry per client ID.
 - Exact counts, premium total and SHA-256 match the supplied snapshot.
+- Original-to-reporting reconciliation preserves policy/client IDs, dates, amounts
+  and original industries; same-client fills and canonical names reconcile.
 
 See [validation output](reporting_validation.json) and the
-[technical write-up](technical_writeup.md). These controls do not establish raw-
-to-final lineage or the correctness of external entity matches.
+[technical write-up](technical_writeup.md). These controls establish source
+preservation and internal consistency. They do not independently verify the
+correctness of external entity matches or classifications.
