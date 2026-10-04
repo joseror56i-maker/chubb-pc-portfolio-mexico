@@ -1,0 +1,32 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["ReportingCsvPath","Polizas"]
+
+ref table Polizas
+ref table Calendario
+ref table Dimensiones
+ref table Periodicidad
+ref table Metrica
+ref table TopN
+ref table RankingTipo
+ref table Corte
+ref table DimensionesDetalle
+ref table Portafolio
+ref table ClientesPortafolio
+ref table AlcanceClientes
+
+ref cultureInfo es-MX
+
+
+ref expression ReportingCsvPath

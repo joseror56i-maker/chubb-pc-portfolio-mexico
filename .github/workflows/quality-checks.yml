@@ -23,3 +23,5 @@ jobs:
         run: python -m compileall -q src notebooks
       - name: Verify reporting snapshot
         run: python src/data_processing/validate_portfolio.py --verify-snapshot
+      - name: Check dashboard project dependencies
+        run: python src/data_processing/validate_dashboard.py

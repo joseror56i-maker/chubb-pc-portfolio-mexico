@@ -1,8 +1,8 @@
 # Revisión del código y de la entrega
 
 Revisión: 2026-10-04. Se leyeron los cinco exports Databricks del ZIP completo,
-además de la prueba, reportes y CSV final. El ZIP no contenía el dataset original,
-los resultados externos guardados ni el dashboard. Los logs de CatBoost no se
+además de la prueba, reportes y CSV final. El dataset original y el proyecto Power BI se integraron después de la revisión
+del código; su trazabilidad y empaquetado se verificaron localmente. Los logs de CatBoost no se
 incluyeron en Git: son resultados temporales, no código ni evidencia suficiente
 para reproducir los experimentos.
 
@@ -38,7 +38,7 @@ no fue reemplazado por una salida del flujo nuevo.
   de datos, conflicto de industria, duplicados, evidencia, nombres y exportación.
 - Sintaxis de todos los módulos y notebooks verificada; no se ejecutaron modelos
   ni llamadas externas. Se comprobaron los valores y fingerprint del CSV entregado.
-- Pendiente: correr con el dataset original, reconciliar fila por fila, revisar
+- Original y reporting reconciliados fila por fila. Pendiente: revisar
   los 52 clientes externos, exportar el entorno real y ejecutar en Databricks.
 - Las versiones opcionales son una propuesta fija; no equivalen al entorno original.
 - Los scores CV con early stopping en el mismo fold son exploratorios. Evaluar
@@ -56,7 +56,7 @@ no fue reemplazado por una salida del flujo nuevo.
 | Fechas | Inicios 2021–2024, vencimientos hasta 2026. Revisar DAX y periodos comparables |
 | Moneda | MXN es un supuesto; no existe conversión USD verificada |
 | LOO | Evidencia del mismo cliente no valida desempeño en clientes nuevos; las pólizas no son independientes para un intervalo binomial |
-| Dashboard | Falta PBIX/PBIP. Revisar paths, datos embebidos, medidas y prueba de descarga/refresh cuando se reciba |
+| Dashboard | PBIP integrado y dependencias verificadas. Falta apertura/refresh/render en Desktop |
 
 Las correcciones de evaluación siguen la [guía oficial de scikit-learn](https://scikit-learn.org/stable/common_pitfalls.html).
 La materialización y lectura de fuentes responden al contrato documentado de

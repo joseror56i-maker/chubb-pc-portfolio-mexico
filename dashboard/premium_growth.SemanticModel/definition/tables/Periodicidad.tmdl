@@ -1,0 +1,42 @@
+table Periodicidad
+	lineageTag: 14336c54-d878-4ec1-a675-4dd20fee865d
+
+	column Periodicidad
+		dataType: string
+		lineageTag: 5a716cc0-1d6b-4286-92c5-5475fd577804
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: Orden
+
+		relatedColumnDetails
+			groupByColumn: Campos
+
+	column Campos
+		dataType: string
+		isHidden
+		lineageTag: a5942d26-cceb-4aea-bc15-d5597bc66a47
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: Orden
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+	column Orden
+		dataType: int64
+		isHidden
+		lineageTag: 8c7c1768-8892-4b7e-8e25-ca51f8035418
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+	partition Periodicidad = calculated
+		mode: import
+		source =
+				{
+				("Mensual", NAMEOF('Calendario'[Mes]), 0),
+				("Trimestral", NAMEOF('Calendario'[Trimestre]), 1),
+				("Anual", NAMEOF('Calendario'[Anio]), 2)
+				}

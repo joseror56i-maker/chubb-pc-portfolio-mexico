@@ -1,0 +1,941 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "resumen",
+  "displayName": "Overview",
+  "displayOption": "FitToPage",
+  "height": 1024,
+  "width": 1536,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F3F7FC'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "ranking",
+      "target": "kpi_caption_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_caption_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_caption_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_caption_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_icon_0_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_icon_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_icon_1_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_icon_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_icon_2_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_icon_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_icon_3_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_panel_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_panel_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_panel_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_panel_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_value_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_value_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_value_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_value_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_yoy_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_yoy_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_yoy_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "kpi_yoy_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "cutoff",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "cutoff_month",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "dimension",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "portfolio",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "ranking_scope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "policies_scope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_caption_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_caption_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_caption_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_caption_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_icon_0_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_icon_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_icon_1_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_icon_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_icon_2_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_icon_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_icon_3_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_panel_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_panel_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_panel_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_panel_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_value_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_value_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_value_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_value_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_yoy_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_yoy_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_yoy_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "kpi_yoy_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "cutoff",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "cutoff_month",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "dimension",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "portfolio",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "ranking_scope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "policies_scope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_caption_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_caption_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_caption_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_caption_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_icon_0_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_icon_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_icon_1_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_icon_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_icon_2_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_icon_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_icon_3_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_panel_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_panel_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_panel_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_panel_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_value_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_value_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_value_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_value_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_yoy_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_yoy_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_yoy_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "kpi_yoy_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "cutoff",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "cutoff_month",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "dimension",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "portfolio",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "ranking_scope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "trend",
+      "target": "policies_scope",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "bulb",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "calendar_icon",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "client",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "client_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "coin_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "coin_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "coin_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "comparison",
+      "type": "DataFilter"
+    },
+    {
+      "source": "top",
+      "target": "comparison_heading",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "comparison_heading_accent",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "comparison_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "coverage",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "coverage_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "cutoff",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "cutoff_month",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "date_caption",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "date_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "dimension",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "dimension_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "eyebrow",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "header",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "header_photo",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "heading",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "industry",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "industry_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_number_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_number_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_number_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_number_bg_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_number_bg_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_number_bg_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_rule_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "insight_rule_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_caption_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_caption_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_caption_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_caption_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_icon_0_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_icon_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_icon_1_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_icon_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_icon_2_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_icon_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_icon_3_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_panel_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_panel_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_panel_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_panel_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_value_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_value_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_value_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_value_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_yoy_0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_yoy_1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_yoy_2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "kpi_yoy_3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "metric",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "municipality",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "municipality_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "nav_detalle",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "nav_icon_detalle",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "nav_icon_resumen",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "nav_label_detalle",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "nav_label_resumen",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "nav_resumen",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "nav_selected",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "periodicity",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "policies_scope",
+      "type": "DataFilter"
+    },
+    {
+      "source": "top",
+      "target": "portfolio",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "portfolio_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "ranking",
+      "type": "DataFilter"
+    },
+    {
+      "source": "top",
+      "target": "ranking_scope",
+      "type": "DataFilter"
+    },
+    {
+      "source": "top",
+      "target": "ranking_type",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "rank_heading",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "rank_heading_accent",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "rank_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "sidebar",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "sidebar_photo",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "side_heading",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "source_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "state",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "state_label",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "subtitle",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "takeaways",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "trend",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "trend_heading",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "trend_heading_accent",
+      "type": "NoFilter"
+    },
+    {
+      "source": "top",
+      "target": "trend_panel",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ranking",
+      "target": "comparison",
+      "type": "NoFilter"
+    },
+    {
+      "source": "comparison",
+      "target": "ranking",
+      "type": "NoFilter"
+    }
+  ]
+}

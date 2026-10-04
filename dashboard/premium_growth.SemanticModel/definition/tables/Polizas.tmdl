@@ -1,0 +1,523 @@
+table Polizas
+	lineageTag: f096ba7d-13b4-4116-b569-c124b3da5193
+
+	measure 'Prima total' = SUM(Polizas[premium])
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 9f4e9375-a325-4a65-9c45-e0da6419fa01
+
+	measure 'Suma asegurada' = SUM(Polizas[sum_insured])
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: e0e7f6cb-b3d7-4119-be1e-c990f75097c8
+
+	measure 'Polizas total' = DISTINCTCOUNT(Polizas[policy_id])
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 367c72cd-0434-4a46-87f8-26281ea8ee31
+
+	measure 'Clientes total' = DISTINCTCOUNT(Polizas[ClientId])
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 20643c77-10d6-403c-bec3-793f98563280
+
+	measure 'Prima anterior' = CALCULATE([Prima total], DATEADD(Calendario[Fecha], -1, YEAR))
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 7d615da8-2a78-45f9-8a31-6218b0b6314d
+
+	measure Crecimiento = IF(NOT ISBLANK([Prima anterior]), [Prima total] - [Prima anterior])
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: cc7a9a15-4d1f-4a69-863b-6a4425770ce9
+
+	measure 'Crecimiento %' = DIVIDE([Crecimiento], [Prima anterior])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Indicadores
+		lineageTag: b0e839d4-2323-4dc6-b95c-3ed7aeb47f01
+
+	measure 'Prima media' = DIVIDE([Prima total], [Polizas total])
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 7632266f-a585-41bc-92a1-2ca5afcbd7dd
+
+	measure 'Metrica seleccionada' = [Metrica YTD]
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 34c1457f-a27b-4632-91be-c09e7d35d99e
+
+	measure 'Periodo seleccionado' = FORMAT(DATE(YEAR([Fecha corte]),1,1),"dd MMM yyyy") & " — " & FORMAT([Fecha corte],"dd MMM yyyy")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 44c0508a-d002-461d-9f8e-a3895d9876c8
+
+	measure 'Lectura del periodo' =
+			VAR Prev = [Prima anterior]
+			RETURN IF(ISBLANK(Prev) || Prev = 0, "Sin base anual comparable para este periodo.", "Variacion anual: " & FORMAT([Crecimiento %], "0.0%") & UNICHAR(10) & "Prima anterior: " & FORMAT(Prev, "#,0.00"))
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 76a81be5-670b-4bd7-8852-75245e3c5bc6
+
+	measure 'Clientes observados' = "Clientes con polizas en la seleccion: " & FORMAT([Clientes total], "#,0")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: caae2843-2c57-432d-82f4-72aa516cffe3
+
+	measure Ranking =
+			SWITCH(TRUE(),
+			ISINSCOPE(Polizas[industry]),
+			VAR V=SELECTEDVALUE(Polizas[industry])
+			VAR M=[Ranking valor]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[industry]),"@M",[Ranking valor]),NOT ISBLANK([@M])),[@M],DESC,Polizas[industry],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[industry],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[industry]<V)))),
+			ISINSCOPE(Polizas[state]),
+			VAR V=SELECTEDVALUE(Polizas[state])
+			VAR M=[Ranking valor]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[state]),"@M",[Ranking valor]),NOT ISBLANK([@M])),[@M],DESC,Polizas[state],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[state],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[state]<V)))),
+			ISINSCOPE(Polizas[municipality]),
+			VAR V=SELECTEDVALUE(Polizas[municipality])
+			VAR M=[Ranking valor]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[municipality]),"@M",[Ranking valor]),NOT ISBLANK([@M])),[@M],DESC,Polizas[municipality],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[municipality],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[municipality]<V)))),
+			ISINSCOPE(Polizas[coverage_type]),
+			VAR V=SELECTEDVALUE(Polizas[coverage_type])
+			VAR M=[Ranking valor]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[coverage_type]),"@M",[Ranking valor]),NOT ISBLANK([@M])),[@M],DESC,Polizas[coverage_type],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[coverage_type],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[coverage_type]<V)))),
+			ISINSCOPE(Polizas[Cliente etiqueta]),
+			VAR V=SELECTEDVALUE(Polizas[Cliente etiqueta])
+			VAR M=[Ranking valor]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[Cliente etiqueta]),"@M",[Ranking valor]),NOT ISBLANK([@M])),[@M],DESC,Polizas[Cliente etiqueta],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[Cliente etiqueta],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[Cliente etiqueta]<V)))),
+			BLANK())
+		formatString: 0
+		displayFolder: Ajustes finales
+		lineageTag: cf2d1467-6bb6-43fc-a025-673ff6f6e806
+
+	measure 'Metrica Top' = IF(NOT ISBLANK([Ranking]) && [Ranking]<=[Top seleccionado],[Metrica YTD])
+		formatString: #,0.00
+		displayFolder: Ajustes finales
+		lineageTag: 39fa7497-5800-4eb2-9273-12f2bd2fcd5d
+
+	measure 'Prima compacta' = FORMAT([Metrica YTD]/1000000,"0.0") & "M"
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: a0002e58-e671-4367-9fdb-55867114cc9f
+
+	measure 'Clientes anterior' = CALCULATE([Clientes total], DATEADD(Calendario[Fecha], -1, YEAR))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 3e845ce2-2c89-4686-a413-601a88b41bd5
+
+	measure 'Polizas anterior' = CALCULATE([Polizas total], DATEADD(Calendario[Fecha], -1, YEAR))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 038b778d-b399-4221-be09-10f208c04ab3
+
+	measure 'Clientes YoY' = VAR V=DIVIDE([Clientes YTD]-[Clientes YTD LY],[Clientes YTD LY]) RETURN IF(NOT ISBLANK(V),FORMAT(V,"+0.0%;-0.0%;0.0%") & " vs. LY","Sin base LY")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 81d00d95-b5dd-455a-a668-9d07e1ba75a6
+
+	measure 'Polizas YoY' = VAR V=DIVIDE([Polizas YTD]-[Polizas YTD LY],[Polizas YTD LY]) RETURN IF(NOT ISBLANK(V),FORMAT(V,"+0.0%;-0.0%;0.0%") & " vs. LY","Sin base LY")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 923cf976-5083-4d44-9f47-def0da94e25f
+
+	measure 'Crecimiento YoY' = IF(NOT ISBLANK([Crecimiento YTD %]),FORMAT([Crecimiento YTD %],"+0.0%;-0.0%;0.0%") & " vs. LY","Sin base LY")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: b7570a3e-5ef8-46e1-9ed0-8e0e158b17f6
+
+	measure 'Tasa pp' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium","Corte LY: " & FORMAT(EDATE([Fecha corte],-12),"dd MMM yyyy"),"YTD vs. LY")
+		formatString: General
+		displayFolder: Ajustes finales
+		lineageTag: 5ffd8f18-aea5-40e4-9567-439f4121352b
+
+	measure 'Trend previous' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium",[Trend Premium LY])
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: aa2a2a36-0743-4ae2-8c03-a8acb02f060d
+
+	measure 'Trend title' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium","Premium por periodo vs. Last Year","Variación de Premium por periodo vs. LY")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 0859c820-ae37-4a3c-a865-dbdabbbea289
+
+	measure 'KPI title' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium","Premium YTD","Premium Growth YTD")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 68de80a0-c870-42bf-b6ad-bf7905c031ad
+
+	measure 'Ranking valor' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium",IF(SELECTEDVALUE(RankingTipo[Tipo],"Importe")="Importe",[Prima YTD],DIVIDE([Prima YTD],[Prima seleccion YTD])),IF(SELECTEDVALUE(RankingTipo[Tipo],"Importe")="Importe",[Diferencia YTD],[Crecimiento YTD %]))
+		displayFolder: Indicadores
+		lineageTag: d63c5d49-7d9e-4d16-abed-4f6145b9d2e6
+
+		formatStringDefinition = IF(SELECTEDVALUE(RankingTipo[Tipo],"Importe")="Porcentaje","0.0%;-0.0%;0.0%","#,0.00;-#,0.00;0.00")
+
+	measure 'Ranking top' = IF(NOT ISBLANK([Ranking]) && [Ranking]<=[Top seleccionado],[Ranking valor])
+		displayFolder: Ajustes finales
+		lineageTag: d299f67d-5844-4c6a-b827-9fcd573d78e5
+
+		formatStringDefinition = IF(SELECTEDVALUE(RankingTipo[Tipo],"Importe")="Porcentaje","0.0%;-0.0%;0.0%","#,0.00;-#,0.00;0.00")
+
+	measure 'Insight 1' = IF(NOT ISBLANK([Crecimiento YTD %]),"Premium YTD: " & FORMAT([Prima YTD]/1000000,"0.0") & "M; variación " & FORMAT([Crecimiento YTD %],"+0.0%;-0.0%;0.0%") & " frente a Last Year.","Premium YTD: " & FORMAT([Prima YTD]/1000000,"0.0") & "M. No hay base del año anterior.")
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 3aff6e4f-89be-4d0b-a59f-586a959171b3
+
+	measure 'Insight 2' = "Prima media por póliza: " & FORMAT([Prima media YTD],"#,0.00") & ". " & FORMAT([Polizas YTD],"#,0") & " pólizas en el periodo YTD."
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 2cb2fd4b-a037-4c14-abce-329efa832758
+
+	measure 'Insight 3' = "Corte: " & FORMAT([Fecha corte],"dd MMM yyyy") & ". Last Year compara del 1 de enero al " & FORMAT(EDATE([Fecha corte],-12),"dd MMM yyyy") & "."
+		formatString: General
+		displayFolder: Indicadores
+		lineageTag: 9fde6fbe-ce1e-4cc6-b2cb-13e674051938
+
+	measure 'Fecha corte' = MAX(Corte[Fecha])
+		formatString: dd MMM yyyy
+		displayFolder: Indicadores
+		lineageTag: e515e7d5-00f1-4f4d-bb17-6128862fcddc
+
+	measure 'Prima YTD' = VAR F=[Fecha corte] RETURN CALCULATE([Prima total], REMOVEFILTERS(Calendario), DATESBETWEEN(Calendario[Fecha], DATE(YEAR(F),1,1), F))
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: e7e3f70c-8d15-48d3-9936-990b6eb68720
+
+	measure 'Prima YTD LY' = VAR F=EDATE([Fecha corte],-12) VAR Inicio=DATE(YEAR(F),1,1) VAR PrimerDato=CALCULATE(MIN(Polizas[policy_start_date]),REMOVEFILTERS()) RETURN IF(F>=PrimerDato, CALCULATE([Prima total], REMOVEFILTERS(Calendario), DATESBETWEEN(Calendario[Fecha],Inicio,F)))
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 5ca71fc9-c14e-4bba-8e78-b0e7abcf537b
+
+	measure 'Diferencia YTD' = VAR PrimerDato=CALCULATE(MIN(Polizas[policy_start_date]),REMOVEFILTERS()) VAR A=[Prima YTD] VAR B=[Prima YTD LY] RETURN IF(YEAR([Fecha corte])>YEAR(PrimerDato) && (NOT ISBLANK(A) || NOT ISBLANK(B)),COALESCE(A,0)-COALESCE(B,0))
+		formatString: #,0.00;-#,0.00;0.00
+		displayFolder: Indicadores
+		lineageTag: 2ed64dbd-4c04-4eb7-95aa-5a281691dd81
+
+	measure 'Crecimiento YTD %' = DIVIDE([Diferencia YTD],[Prima YTD LY])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Indicadores
+		lineageTag: e34e381a-8e1c-4473-a7cc-f7419054d529
+
+	measure 'Polizas YTD' = VAR F=[Fecha corte] RETURN CALCULATE([Polizas total],REMOVEFILTERS(Calendario),DATESBETWEEN(Calendario[Fecha],DATE(YEAR(F),1,1),F))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 8ba4d120-eb77-485c-83a3-48d9e1673b62
+
+	measure 'Clientes YTD' = VAR F=[Fecha corte] RETURN CALCULATE([Clientes total],REMOVEFILTERS(Calendario),DATESBETWEEN(Calendario[Fecha],DATE(YEAR(F),1,1),F))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 17c5b115-88ba-4b98-870e-e0a52fe13af2
+
+	measure 'Clientes YTD LY' = VAR F=EDATE([Fecha corte],-12) RETURN CALCULATE([Clientes total],REMOVEFILTERS(Calendario),DATESBETWEEN(Calendario[Fecha],DATE(YEAR(F),1,1),F))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 8436afd9-01ce-4b6a-90ae-7ff1294d731a
+
+	measure 'Polizas YTD LY' = VAR F=EDATE([Fecha corte],-12) RETURN CALCULATE([Polizas total],REMOVEFILTERS(Calendario),DATESBETWEEN(Calendario[Fecha],DATE(YEAR(F),1,1),F))
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 0266846d-a31d-46df-b8dc-14fb2ddd319d
+
+	measure 'Prima media YTD' = DIVIDE([Prima YTD],[Polizas YTD])
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 87c42f02-18de-4b2f-be86-d1c34fb7a16e
+
+	measure 'Metrica YTD' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium",[Prima YTD],[Diferencia YTD])
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 7590f52f-fa4a-416d-93b3-33e8a2e4b309
+
+	measure 'Ranking title' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium","Premium YTD","Premium Growth YTD") & IF(SELECTEDVALUE(RankingTipo[Tipo],"Importe")="Importe"," · Importe"," · Porcentaje")
+		formatString: General
+		displayFolder: Ajustes finales
+		lineageTag: 297a53e1-0a71-45f3-a677-91a4d2148fcc
+
+	measure 'Fila comparable' = IF(COALESCE([Prima YTD],0)<>0 || COALESCE([Prima YTD LY],0)<>0,1)
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: a91e3a40-44db-4bef-93c0-16f603405bcb
+
+	measure 'Poliza en YTD' = VAR F=[Fecha corte] VAR D=SELECTEDVALUE(Polizas[policy_start_date]) RETURN IF(NOT ISBLANK(D) && D>=DATE(YEAR(F),1,1) && D<=F,1)
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 1ce353da-c623-44c6-be45-a8459d3d834e
+
+	measure 'Prima seleccion YTD' = SWITCH(TRUE(),ISINSCOPE(Polizas[industry]),CALCULATE([Prima YTD],ALLSELECTED(Polizas[industry])),ISINSCOPE(Polizas[state]),CALCULATE([Prima YTD],ALLSELECTED(Polizas[state])),ISINSCOPE(Polizas[municipality]),CALCULATE([Prima YTD],ALLSELECTED(Polizas[municipality])),ISINSCOPE(Polizas[coverage_type]),CALCULATE([Prima YTD],ALLSELECTED(Polizas[coverage_type])),ISINSCOPE(Polizas[Cliente etiqueta]),CALCULATE([Prima YTD],ALLSELECTED(Polizas[Cliente etiqueta])),[Prima YTD])
+		formatString: #,0.00
+		displayFolder: Ajustes finales
+		lineageTag: 767719d7-56d6-4211-a2fa-29480a4061c5
+
+	measure 'Ranking polizas' =
+			SWITCH(TRUE(),
+			ISINSCOPE(Polizas[industry]),
+			VAR V=SELECTEDVALUE(Polizas[industry])
+			VAR M=[Polizas YTD]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[industry]),"@M",[Polizas YTD]),NOT ISBLANK([@M])),[@M],DESC,Polizas[industry],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[industry],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[industry]<V)))),
+			ISINSCOPE(Polizas[state]),
+			VAR V=SELECTEDVALUE(Polizas[state])
+			VAR M=[Polizas YTD]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[state]),"@M",[Polizas YTD]),NOT ISBLANK([@M])),[@M],DESC,Polizas[state],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[state],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[state]<V)))),
+			ISINSCOPE(Polizas[municipality]),
+			VAR V=SELECTEDVALUE(Polizas[municipality])
+			VAR M=[Polizas YTD]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[municipality]),"@M",[Polizas YTD]),NOT ISBLANK([@M])),[@M],DESC,Polizas[municipality],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[municipality],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[municipality]<V)))),
+			ISINSCOPE(Polizas[coverage_type]),
+			VAR V=SELECTEDVALUE(Polizas[coverage_type])
+			VAR M=[Polizas YTD]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[coverage_type]),"@M",[Polizas YTD]),NOT ISBLANK([@M])),[@M],DESC,Polizas[coverage_type],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[coverage_type],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[coverage_type]<V)))),
+			ISINSCOPE(Polizas[Cliente etiqueta]),
+			VAR V=SELECTEDVALUE(Polizas[Cliente etiqueta])
+			VAR M=[Polizas YTD]
+			VAR C=TOPN([Top seleccionado],FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[Cliente etiqueta]),"@M",[Polizas YTD]),NOT ISBLANK([@M])),[@M],DESC,Polizas[Cliente etiqueta],ASC)
+			RETURN IF(NOT ISBLANK(M) && CONTAINS(C,Polizas[Cliente etiqueta],V),1+COUNTROWS(FILTER(C,[@M]>M || ([@M]=M && Polizas[Cliente etiqueta]<V)))),
+			BLANK())
+		formatString: 0
+		displayFolder: Ajustes finales
+		lineageTag: 86d05ca8-8ce6-4e44-862d-61675dc87061
+
+	measure 'Polizas top' = IF(NOT ISBLANK([Ranking polizas]) && [Ranking polizas]<=[Top seleccionado],[Polizas YTD])
+		formatString: #,0
+		displayFolder: Ajustes finales
+		lineageTag: 5df3e90e-839f-41bd-9d89-ae6b9fbca187
+
+	measure 'Trend Premium' = VAR F=[Fecha corte] VAR D=INTERSECT(VALUES(Calendario[Fecha]),CALENDAR(DATE(YEAR(F),1,1),F)) RETURN IF(COUNTROWS(D)>0,CALCULATE([Prima total],KEEPFILTERS(D)))
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: 3c45e463-5a8a-4f56-99e6-28af7433f29a
+
+	measure 'Trend Premium LY' = VAR F=[Fecha corte] VAR D=INTERSECT(VALUES(Calendario[Fecha]),CALENDAR(DATE(YEAR(F),1,1),F)) RETURN IF(COUNTROWS(D)>0,CALCULATE([Prima total],REMOVEFILTERS(Calendario),DATESBETWEEN(Calendario[Fecha],EDATE(MINX(D,Calendario[Fecha]),-12),EDATE(MAXX(D,Calendario[Fecha]),-12))))
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: bd1e5fac-a19e-4f91-a632-d03a150598cc
+
+	measure 'Trend actual' = VAR PrimerDato=CALCULATE(MIN(Polizas[policy_start_date]),REMOVEFILTERS()) RETURN IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium",[Trend Premium],IF(YEAR([Fecha corte])>YEAR(PrimerDato) && (NOT ISBLANK([Trend Premium]) || NOT ISBLANK([Trend Premium LY])),COALESCE([Trend Premium],0)-COALESCE([Trend Premium LY],0)))
+		formatString: #,0.00
+		displayFolder: Indicadores
+		lineageTag: b6ac0d6d-5b20-4d4b-b65a-2814d017766f
+
+	measure 'Ranking grafica' = IF(SELECTEDVALUE(RankingTipo[Tipo],"Importe")="Importe",[Ranking top]/1000000,[Ranking top])
+		displayFolder: Indicadores
+		lineageTag: 7e646964-1ecd-40a5-95dd-8bdffcf66510
+
+		formatStringDefinition = IF(SELECTEDVALUE(RankingTipo[Tipo],"Importe")="Importe","0.0""M""","0.0%;-0.0%;0.0%")
+
+	measure 'Elementos total' = SWITCH(SELECTEDVALUE(Dimensiones[Orden],0),0,DISTINCTCOUNT(Polizas[industry]),1,DISTINCTCOUNT(Polizas[state]),2,DISTINCTCOUNT(Polizas[municipality]),3,DISTINCTCOUNT(Polizas[coverage_type]),4,DISTINCTCOUNT(Polizas[ClientId]))
+		formatString: #,0
+		displayFolder: Validación y presentación
+		lineageTag: a6ba691f-4da2-4e2f-a69e-21ea53232494
+
+	measure 'Elementos YTD' = VAR F=[Fecha corte] RETURN CALCULATE([Elementos total],REMOVEFILTERS('TopN'),REMOVEFILTERS(Calendario),DATESBETWEEN(Calendario[Fecha],DATE(YEAR(F),1,1),F))
+		formatString: #,0
+		displayFolder: Validación y presentación
+		lineageTag: c49bcade-94a1-40a4-92f4-0b99cc52b432
+
+	measure 'Elementos YTD LY' = VAR F=EDATE([Fecha corte],-12) RETURN CALCULATE([Elementos total],REMOVEFILTERS('TopN'),REMOVEFILTERS(Calendario),DATESBETWEEN(Calendario[Fecha],DATE(YEAR(F),1,1),F))
+		formatString: #,0
+		displayFolder: Validación y presentación
+		lineageTag: 28fce515-d392-427a-989a-c84bf87ef2d6
+
+	measure 'Elementos titulo' = SWITCH(SELECTEDVALUE(Dimensiones[Orden],0),0,"Industrias",1,"Estados",2,"Municipios",3,"Coberturas",4,"Clientes")
+		formatString: General
+		displayFolder: Validación y presentación
+		lineageTag: 3a814b82-aa7b-46dd-ac0f-20b258ce2555
+
+	measure 'Elementos YoY' = VAR V=DIVIDE([Elementos YTD]-[Elementos YTD LY],[Elementos YTD LY]) RETURN IF(NOT ISBLANK(V),FORMAT(V,"+0.0%;-0.0%;0.0%") & " vs. LY","Sin base LY")
+		formatString: General
+		displayFolder: Ajustes finales
+		lineageTag: e3755afb-3cce-4a25-a45d-7da9e6b8ed7e
+
+	measure 'KPI comparacion titulo' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium","Premium LY YTD","Growth Rate")
+		formatString: General
+		displayFolder: Ajustes finales
+		lineageTag: 7c25283c-a727-448c-ae00-945cf1a7fdbf
+
+	measure 'KPI comparacion' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium",[Prima YTD LY]/1000000,[Crecimiento YTD %])
+		displayFolder: Ajustes finales
+		lineageTag: 981c6581-0c42-4a5b-93d0-3d6d6a0927b9
+
+		formatStringDefinition = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium","0.0""M""","0.0%;-0.0%;0.0%")
+
+	measure 'Top seleccionado' = SELECTEDVALUE('TopN'[N],5)
+		formatString: 0
+		displayFolder: Ajustes finales
+		lineageTag: 8ff63f98-6ced-445e-8167-1e5980c48feb
+
+	measure 'Ranking visible' = IF(NOT ISBLANK([Ranking]) && [Ranking]<=[Top seleccionado] && NOT ISBLANK([Ranking valor]),1,0)
+		formatString: 0
+		displayFolder: Ajustes finales
+		lineageTag: aba636a6-8bd6-4ed6-913f-ce59c7c5b7fe
+
+	measure 'Polizas ranking visible' = IF(NOT ISBLANK([Ranking polizas]) && [Ranking polizas]<=[Top seleccionado] && NOT ISBLANK([Polizas YTD]),1,0)
+		formatString: 0
+		displayFolder: Ajustes finales
+		lineageTag: 2caa7001-db53-424e-b56d-5013e90d64c5
+
+	measure 'Ranking candidatos' = SWITCH(SELECTEDVALUE(Dimensiones[Orden],0),0,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[industry]),"@M",[Ranking valor]),NOT ISBLANK([@M]))),1,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[state]),"@M",[Ranking valor]),NOT ISBLANK([@M]))),2,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[municipality]),"@M",[Ranking valor]),NOT ISBLANK([@M]))),3,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[coverage_type]),"@M",[Ranking valor]),NOT ISBLANK([@M]))),4,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[Cliente etiqueta]),"@M",[Ranking valor]),NOT ISBLANK([@M]))))
+		formatString: 0
+		displayFolder: Ajustes finales
+		lineageTag: 5612e292-dee5-4419-af00-ecef10de681b
+
+	measure 'Polizas candidatos' = SWITCH(SELECTEDVALUE(Dimensiones[Orden],0),0,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[industry]),"@M",[Polizas YTD]),NOT ISBLANK([@M]))),1,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[state]),"@M",[Polizas YTD]),NOT ISBLANK([@M]))),2,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[municipality]),"@M",[Polizas YTD]),NOT ISBLANK([@M]))),3,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[coverage_type]),"@M",[Polizas YTD]),NOT ISBLANK([@M]))),4,COUNTROWS(FILTER(ADDCOLUMNS(ALLSELECTED(Polizas[Cliente etiqueta]),"@M",[Polizas YTD]),NOT ISBLANK([@M]))))
+		formatString: 0
+		displayFolder: Ajustes finales
+		lineageTag: cfe889c5-39a8-4612-862c-f37eff287b94
+
+	measure 'Ranking alcance' = VAR A=[Ranking candidatos] RETURN "Mostrando " & FORMAT(MIN([Top seleccionado],A),"0") & " de " & FORMAT(A,"0") & " · " & [Elementos titulo]
+		formatString: General
+		displayFolder: Ajustes finales
+		lineageTag: 8c3f8c8e-fe22-491f-b43a-eea683367830
+
+	measure 'Polizas alcance' = VAR A=[Polizas candidatos] RETURN "Mostrando " & FORMAT(MIN([Top seleccionado],A),"0") & " de " & FORMAT(A,"0") & " · " & [Elementos titulo]
+		formatString: General
+		displayFolder: Ajustes finales
+		lineageTag: 1c8b0d51-310e-4622-becf-9f5f691585c2
+
+	measure 'Elementos etiqueta' = [Elementos titulo] & " YTD"
+		formatString: General
+		displayFolder: Validación y presentación
+		lineageTag: ec3fd317-d5c6-444d-9dce-ab03b250193d
+
+	measure 'Color crecimiento' = VAR V=[Crecimiento YTD %] RETURN IF(ISBLANK(V) || V=0,"#53688C",IF(V<0,"#C94454","#009B72"))
+		formatString: General
+		displayFolder: Validación y presentación
+		lineageTag: b430b2e4-b3ef-4e3c-8781-91d3e9e0d760
+
+	measure 'Color elementos' = VAR V=[Elementos YTD]-[Elementos YTD LY] RETURN IF(V=0,"#53688C",IF(V<0,"#C94454","#009B72"))
+		formatString: General
+		displayFolder: Validación y presentación
+		lineageTag: 8615695d-5baf-4147-9c1b-fb2c3e42f4f3
+
+	measure 'Color clientes' = VAR V=[Clientes YTD]-[Clientes YTD LY] RETURN IF(V=0,"#53688C",IF(V<0,"#C94454","#009B72"))
+		formatString: General
+		displayFolder: Validación y presentación
+		lineageTag: 292c2e4c-0cfe-4c27-8eac-defd82d4341a
+
+	measure 'Color polizas' = VAR V=[Polizas YTD]-[Polizas YTD LY] RETURN IF(V=0,"#53688C",IF(V<0,"#C94454","#009B72"))
+		formatString: General
+		displayFolder: Validación y presentación
+		lineageTag: d5d2c5d5-89bd-47d0-83c3-93bfbe1b26b9
+
+	measure 'Color comparacion' = IF(SELECTEDVALUE(Metrica[Metrica],"Premium")="Premium","#0B1747",[Color crecimiento])
+		formatString: General
+		displayFolder: Validación y presentación
+		lineageTag: e8f088a4-7457-4c83-89a8-a214529d339d
+
+	column ClientId
+		dataType: string
+		lineageTag: 9272af40-1353-494f-90c4-5b90e1742863
+		summarizeBy: none
+		sourceColumn: ClientId
+
+	column policy_id
+		dataType: string
+		lineageTag: 679227e0-afa4-442b-afa4-4bb55709e380
+		summarizeBy: none
+		sourceColumn: policy_id
+
+	column client_name
+		dataType: string
+		lineageTag: 57f27395-d8e0-4de5-9dd2-3c8327b3d8f2
+		summarizeBy: none
+		sourceColumn: client_name
+
+	column state
+		dataType: string
+		lineageTag: 4152e111-e755-4f3b-bb2f-dcb2add68c37
+		summarizeBy: none
+		sourceColumn: state
+
+	column municipality
+		dataType: string
+		lineageTag: d54657eb-c109-4704-9c0f-9a809a1737f3
+		summarizeBy: none
+		sourceColumn: municipality
+
+	column coverage_type
+		dataType: string
+		lineageTag: b9a81a85-5570-46d7-90d2-b2100b6e3183
+		summarizeBy: none
+		sourceColumn: coverage_type
+
+	column industry
+		dataType: string
+		lineageTag: 59bdd184-d4bd-46e9-86d1-b24c1c073498
+		summarizeBy: none
+		sourceColumn: industry
+
+	column premium
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: 31e4e1d0-2ddd-4e45-81f5-de33a0ddc249
+		summarizeBy: sum
+		sourceColumn: premium
+
+		annotation SummarizationSetBy = Automatic
+
+	column sum_insured
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: b0c2ac29-4c5b-48fd-b33d-66e5742941d5
+		summarizeBy: sum
+		sourceColumn: sum_insured
+
+		annotation SummarizationSetBy = Automatic
+
+	column policy_start_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 6aa8d8b8-e72d-4763-abae-f0339fa34fc4
+		summarizeBy: none
+		sourceColumn: policy_start_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column policy_end_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c6bcbc18-9ab0-410e-9e42-45c889e95d3d
+		summarizeBy: none
+		sourceColumn: policy_end_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fill_method
+		dataType: string
+		lineageTag: 2e5397e3-1f6c-4797-b60c-f468ce00a0d2
+		summarizeBy: none
+		sourceColumn: fill_method
+
+	column confidence_level
+		dataType: string
+		lineageTag: 4a6f376c-1994-4cf1-82d8-ad2474c5c815
+		summarizeBy: none
+		sourceColumn: confidence_level
+
+	column 'Cliente etiqueta' = Polizas[ClientId] & " · " & Polizas[client_name]
+		dataType: string
+		lineageTag: 6fad665a-b93a-42fc-b448-2bb66fbc62b3
+		summarizeBy: none
+
+	/// Country is absent from the source; no country is inferred.
+	column Pais = "Not specified"
+		dataType: string
+		lineageTag: 8dde7086-bd59-40e9-b78e-d7b6a6f87d87
+		summarizeBy: none
+
+	partition Polizas = m
+		mode: import
+		source =
+				let
+				    Source = if Text.Trim(ReportingCsvPath) = "" then error "Set ReportingCsvPath to the reporting CSV, or run the repository dashboard setup helper." else Csv.Document(File.Contents(ReportingCsvPath), [Delimiter=",", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Types = Table.TransformColumnTypes(Headers, {{"ClientId", type text}, {"policy_id", type text}, {"client_name", type text}, {"state", type text}, {"municipality", type text}, {"coverage_type", type text}, {"industry", type text}, {"premium", Currency.Type}, {"sum_insured", Currency.Type}, {"policy_start_date", type date}, {"policy_end_date", type date}, {"fill_method", type text}, {"confidence_level", type text}}, "en-US")
+				in
+				    Types

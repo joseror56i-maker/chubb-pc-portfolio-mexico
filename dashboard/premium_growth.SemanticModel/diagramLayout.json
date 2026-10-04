@@ -1,0 +1,176 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 334,
+            "y": -12
+          },
+          "nodeIndex": "Calendario",
+          "nodeLineageTag": "a19b9595-a45e-4f42-a6fd-f65a84f1e930",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 568,
+            "y": 74
+          },
+          "nodeIndex": "Dimensiones",
+          "nodeLineageTag": "85276c04-703e-47da-bcb7-93d0c13974a2",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 50
+          },
+          "nodeIndex": "Metrica",
+          "nodeLineageTag": "cf83abfa-7b07-45bc-9313-9c3b4d8ca70b",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 74
+          },
+          "nodeIndex": "Periodicidad",
+          "nodeLineageTag": "14336c54-d878-4ec1-a675-4dd20fee865d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": -50
+          },
+          "nodeIndex": "Polizas",
+          "nodeLineageTag": "f096ba7d-13b4-4116-b569-c124b3da5193",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 50
+          },
+          "nodeIndex": "RankingTipo",
+          "nodeLineageTag": "7fbbbebe-da46-4d49-97ab-7efd45e002f9",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1704,
+            "y": 50
+          },
+          "nodeIndex": "TopN",
+          "nodeLineageTag": "55d415e9-d169-4f31-93d0-046804ebb362",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1938,
+            "y": 50
+          },
+          "nodeIndex": "Corte",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2222,
+            "y": 74
+          },
+          "nodeIndex": "DimensionesDetalle",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2790.18475118063,
+            "y": 54.934890822657636
+          },
+          "nodeIndex": "AlcanceClientes",
+          "nodeLineageTag": "6e566227-7ddc-407e-a80f-f9342a411a8a",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2506,
+            "y": 0
+          },
+          "nodeIndex": "ClientesPortafolio",
+          "nodeLineageTag": "46deefa0-3fd3-4a67-8b0d-7c8afe361326",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3074.3616394153596,
+            "y": 68.259883455092961
+          },
+          "nodeIndex": "Portafolio",
+          "nodeLineageTag": "f3c303f1-0ef9-48fa-8ee3-6a972142b200",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 63.287087723234137,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

@@ -146,7 +146,7 @@ or:
 
 **91.65% of the originally missing population**
 
-After this stage, only **1,472 policies** remained unresolved.
+Residual clients were passed to external entity resolution and industry research.
 
 ---
 

@@ -1,0 +1,40 @@
+{
+  "scope": "independent CSV controls, not evaluated DAX",
+  "filters": "full portfolio, full calendar year, no industry/location/client filters",
+  "date_basis": "policy_start_date",
+  "yearly": {
+    "2021": {
+      "policies": 12604,
+      "clients": 4821,
+      "premium": "5708419255.28",
+      "premium_growth_amount": null,
+      "premium_growth_pct": null
+    },
+    "2022": {
+      "policies": 12608,
+      "clients": 4791,
+      "premium": "5880996179.68",
+      "premium_growth_amount": "172576924.40",
+      "premium_growth_pct": "3.023199885684203136198766000"
+    },
+    "2023": {
+      "policies": 12573,
+      "clients": 4801,
+      "premium": "5940216680.53",
+      "premium_growth_amount": "59220500.85",
+      "premium_growth_pct": "1.006980774016118107338263500"
+    },
+    "2024": {
+      "policies": 12656,
+      "clients": 4822,
+      "premium": "5935730657.61",
+      "premium_growth_amount": "-4486022.92",
+      "premium_growth_pct": "-0.0755195165641625477239314900"
+    }
+  },
+  "all_periods": {
+    "policies": 50441,
+    "clients": 8565,
+    "premium": "23465362773.10"
+  }
+}

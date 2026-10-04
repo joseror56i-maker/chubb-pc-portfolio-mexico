@@ -17,12 +17,12 @@ The validator exits 0 on PASS, 1 on failed checks and 2 on input/argument errors
 ## Local recovery in Visual Studio Code
 
 1. Open the complete folder and select Python 3.12.
-2. Obtain the original portfolio, not the reporting export. Required raw columns:
+2. Use the included original portfolio, not the reporting export. Required raw columns:
    `ClientId, policy_id, client_name, state, municipality, coverage_type, industry,
    premium, sum_insured, policy_start_date, policy_end_date`. Missing industry is blank;
    other required fields must be usable. IDs remain strings, amounts use Decimal,
    dates accept ISO or day/month/year. Extra provenance columns are refused.
-3. Put the CSV in `data/raw/portfolio_original.csv` (not tracked).
+3. The original CSV is included at `data/raw/portfolio_original.csv`.
 4. Copy and edit config, then run from the root:
 
 ```powershell
@@ -145,7 +145,8 @@ verified correctness of each industry. Preserve errors and review source matches
 | `06_validation.json` | Counts, exact premium and data-quality diagnostics |
 | `run_manifest.json` | Complete CLI-run status and artifact fingerprints |
 
-Raw input, private config, evidence and generated artifacts are excluded from Git.
+The challenge's original input is included; other private input, config, evidence
+and generated local artifacts remain excluded from Git.
 Review deliberate publication separately from running code.
 
 References: [Databricks Python modules](https://docs.databricks.com/aws/en/files/workspace-modules),

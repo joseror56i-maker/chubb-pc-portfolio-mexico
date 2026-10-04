@@ -1,0 +1,12 @@
+table Metrica
+	lineageTag: 5e2abc95-f016-46a9-8ce5-d5b31061ca38
+
+	column Metrica
+		dataType: string
+		lineageTag: a6682dba-38a6-4e41-8d7a-2782b93f14c4
+		summarizeBy: none
+		sourceColumn: [Metrica]
+
+	partition Metrica = calculated
+		mode: import
+		source = DATATABLE("Metrica",STRING,{{"Premium"},{"Premium Growth"}})

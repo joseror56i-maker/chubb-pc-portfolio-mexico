@@ -1,0 +1,45 @@
+table DimensionesDetalle
+	lineageTag: b6ef3ae9-3345-4cc9-bb4d-b1efc3b61e75
+
+	column DimensionesDetalle
+		dataType: string
+		lineageTag: d754a566-64ea-43b5-8c2c-687f438e15f5
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: Orden
+
+		relatedColumnDetails
+			groupByColumn: Campos
+
+	column Campos
+		dataType: string
+		isHidden
+		lineageTag: 8c51ef62-b3a0-4ee8-89d5-db411866dead
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: Orden
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+	column Orden
+		dataType: int64
+		isHidden
+		lineageTag: 033bd68b-5957-4dea-aed7-32323cbbff5e
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+	partition DimensionesDetalle = calculated
+		mode: import
+		source =
+				{
+				("Client ID",NAMEOF('Polizas'[ClientId]),0),
+				("Cliente",NAMEOF('Polizas'[client_name]),1),
+				("Industria",NAMEOF('Polizas'[industry]),2),
+				("Estado",NAMEOF('Polizas'[state]),3),
+				("Municipio",NAMEOF('Polizas'[municipality]),4),
+				("Cobertura",NAMEOF('Polizas'[coverage_type]),5)
+				}

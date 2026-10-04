@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "policy_view",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "width": 1536,
+    "height": 1024,
+    "z": 20000
+  },
+  "visualGroup": {
+    "displayName": "policy_view",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

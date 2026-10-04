@@ -1,0 +1,19 @@
+table TopN
+	lineageTag: cc6519f3-be99-4173-8288-cb3a7ea06f7a
+
+	column N
+		dataType: int64
+		lineageTag: be80bbaf-0a45-40f5-998a-398b2e3263a1
+		summarizeBy: none
+		sourceColumn: [N]
+
+	column Etiqueta
+		dataType: string
+		lineageTag: 3206d53e-d8b4-427f-9d3b-bdb55c3d8658
+		summarizeBy: none
+		sourceColumn: [Etiqueta]
+		sortByColumn: N
+
+	partition TopN = calculated
+		mode: import
+		source = DATATABLE("N",INTEGER,"Etiqueta",STRING,{{5,"Top 5"},{10,"Top 10"}})

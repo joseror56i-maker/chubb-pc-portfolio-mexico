@@ -4,7 +4,7 @@
 
 These counts and monetary totals were recalculated from the supplied reporting
 snapshot on 2026-10-04. Historical validation and model results are candidate-
-reported until the original input and saved evidence are available. The source
+reported until fresh experiment outputs and saved evidence are available. The source
 code has now been reviewed; corrected evaluation and acceptance rules require reruns.
 
 | Measure | Result |

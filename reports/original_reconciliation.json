@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "scope": "source_preservation_same_client_recovery_and_display_names",
+  "original_sha256": "9a80d0382c3035e28f39a0fb1c9d2b59a42b7d4af2543344bd64029b4b978233",
+  "original_rows": 50441,
+  "reporting_rows": 50441,
+  "unique_clients": 8565,
+  "original_known_rows": 32810,
+  "original_missing_rows": 17631,
+  "deterministic_method_counts": {
+    "original": 32810,
+    "client_id": 16159
+  },
+  "premium_total": "23465362773.10",
+  "row_identity_amount_dates_and_original_industry_preserved": true,
+  "canonical_names_reproduced": true,
+  "issues": {},
+  "final_unresolved_rows": 1356
+}

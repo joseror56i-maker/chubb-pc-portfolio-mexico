@@ -1,0 +1,46 @@
+table Calendario
+	lineageTag: a19b9595-a45e-4f42-a6fd-f65a84f1e930
+	dataCategory: Time
+
+	column Fecha
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 1edf3502-91e7-49fd-b540-28b41f8b11d3
+		summarizeBy: none
+		sourceColumn: [Date]
+
+	column Anio = YEAR(Calendario[Fecha])
+		dataType: int64
+		lineageTag: 6b51a194-6f9d-414a-89fd-a7c8977f4534
+		summarizeBy: none
+
+	column Mes = FORMAT(Calendario[Fecha], "yyyy-MM")
+		dataType: string
+		lineageTag: acf64863-4996-4bd0-aa3c-476eacaaa5d9
+		summarizeBy: none
+		sortByColumn: MesOrden
+
+	column MesOrden = YEAR(Calendario[Fecha]) * 100 + MONTH(Calendario[Fecha])
+		dataType: int64
+		isHidden
+		lineageTag: bee61610-3109-4bd0-a8d9-66547ded669a
+		summarizeBy: none
+
+	column Trimestre = FORMAT(Calendario[Fecha], "yyyy") & " T" & QUARTER(Calendario[Fecha])
+		dataType: string
+		lineageTag: bac6295d-fd68-4bc0-9e95-d42706b36680
+		summarizeBy: none
+		sortByColumn: TrimestreOrden
+
+	column TrimestreOrden = YEAR(Calendario[Fecha]) * 10 + QUARTER(Calendario[Fecha])
+		dataType: int64
+		isHidden
+		lineageTag: 00dc9789-93dc-467f-b330-46a2b9d3b54e
+		summarizeBy: none
+
+	partition Calendario = calculated
+		mode: import
+		source = CALENDAR(DATE(2020,1,1), DATE(2024,12,31))
+
+	annotation __PBI_LocalDateTable = false

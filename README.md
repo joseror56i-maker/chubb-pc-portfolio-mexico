@@ -19,14 +19,14 @@ Modeling and live enrichment have separate environments and execution controls.
 | Filled dataset | `data/processed/portfolio_reporting.csv`; supplied snapshot, byte-for-byte preserved |
 | Quality report and short write-up | Reconciled to the snapshot; historical experiment scores identified |
 | Local processing | End-to-end fixture run and unit tests pass with Python 3.12.14 |
-| Databricks and original-data reproduction | Source prepared; requires original input, saved evidence and workspace execution |
-| Interactive dashboard | Awaiting PBIX/PBIP and preview |
+| Databricks and original-data reproduction | Original input included and deterministic lineage checked; workspace/research execution pending |
+| Interactive dashboard | PBIP project included; Desktop refresh/visual validation and preview pending |
 
-**The code ZIP did not include the original input or saved external mappings.**
-Do not use the filled reporting CSV as raw data; it has already overwritten industry.
-The refactored pipeline rejects that input. Historical ML scores and the 116
-external fills have not been reproduced during packaging. Review changes to
-evaluation and external acceptance mean a new run can differ from the snapshot.
+The original input and the complete Power BI source project are included.
+Row identity, amounts, dates, original industries, same-client fills and normalized
+names reconcile against the final reporting dataset. LLM/external research is part
+of the solution and has its own reviewed code, prompt and evidence workflow.
+Historical research scores still require execution in their intended environment.
 
 ## Results in the submitted snapshot
 
@@ -40,7 +40,7 @@ evaluation and external acceptance mean a new run can differ from the snapshot.
 
 The flags imply 17,631 initially missing rows and 16,275 recovered rows (92.31%).
 That reconciliation depends on the supplied provenance flags. Original-label
-preservation still needs reconciliation against the original input.
+preservation and same-client assignments reconcile against the included original.
 See the [quality report](reports/fill_quality_report.md),
 [short write-up](reports/technical_writeup.md) and [appendix](reports/technical_appendix.md).
 
@@ -48,7 +48,7 @@ See the [quality report](reports/fill_quality_report.md),
 
 ```text
 config/                 Data contract and portable pipeline example
-data/raw/               Original input; excluded from Git by default
+data/raw/               Included original challenge input
 data/processed/          Unchanged submitted reporting snapshot
 src/data_processing/    Recovery, evidence replay, name normalization, I/O, validation
 src/modeling/           Reusable statistical diagnostic
@@ -59,7 +59,7 @@ notebooks/research/     Optional distributed EDA and live external research
 tests/                  Identity, evidence, lineage, export and snapshot checks
 reports/                Submission reports and verified snapshot diagnostics
 docs/                   Runbook, code review, dictionary and submission checklist
-dashboard/              Dashboard packaging and refresh guidance
+dashboard/              Complete PBIP, TMDL model and portable setup helper
 assets/                 Place for an actual dashboard preview
 work/runs/              Generated run artifacts; excluded from Git
 ```
@@ -90,8 +90,8 @@ python -m unittest discover -s tests -v
 python src/data_processing/validate_portfolio.py --verify-snapshot
 ```
 
-These work immediately on the included files. To run recovery after obtaining the
-original input, put it at `data/raw/portfolio_original.csv`, then:
+The original input is included at `data/raw/portfolio_original.csv`. To run the
+reviewed processing stages:
 
 ```powershell
 Copy-Item config/pipeline.example.json config/pipeline.local.json
@@ -135,9 +135,22 @@ workspace capabilities and explicit enablement; see the [runbook](docs/runbook.m
 - Proposed written-premium timing uses policy start date (2021–2024). Actual DAX,
   same-period growth and dashboard refresh remain to be reviewed.
 
-The CSV was renamed from `Client_Name_Normalization_Reporting_FINAL_v2.csv` without
-changing bytes. Its hash is in `config/portfolio_contract.json`. This is a candidate
-submission, not an official Chubb product; no code/data license has been assumed.
+## Open the dashboard
+
+Download the full repository ZIP or clone it. From the extracted root:
+
+```powershell
+python dashboard/setup_dashboard.py
+```
+
+Open `work/pbi/premium_growth.pbip` in Power BI Desktop and select Refresh. The
+helper sets the CSV parameter in an ignored local copy; the shared project retains
+portable report/model references. See [dashboard instructions](dashboard/README.md)
+and [download/refresh review](docs/dashboard_review.md).
+
+The reporting snapshot's bytes are unchanged and its fingerprint is in the data
+contract. This is a candidate submission, not an official Chubb product; no
+code/data license has been assumed.
 
 See [code review and corrections](docs/review_notes.md),
 [source mapping](docs/source_inventory.md), [execution instructions](docs/runbook.md)

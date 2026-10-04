@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Comparación",
+  "name": "detail_comparison",
+  "options": {
+    "suppressActiveSection": true,
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.0",
+    "activeSection": "detalle",
+    "sections": {
+      "detalle": {
+        "visualContainers": {},
+        "visualContainerGroups": {
+          "comparison_view": {
+            "isHidden": false
+          },
+          "policy_view": {
+            "isHidden": true
+          }
+        }
+      }
+    }
+  }
+}

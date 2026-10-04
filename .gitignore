@@ -16,6 +16,7 @@ venv/
 # Inputs and generated local outputs
 data/raw/*
 !data/raw/README.md
+!data/raw/portfolio_original.csv
 work/
 config/pipeline.local.json
 data/interim/

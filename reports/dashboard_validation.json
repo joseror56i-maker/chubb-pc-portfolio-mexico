@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "scope": "static_project_dependencies",
+  "project_name": "premium_growth.pbip",
+  "tables": 12,
+  "measures": 70,
+  "pages": 2,
+  "visual_containers": 165,
+  "registered_resources": 4,
+  "issues": {},
+  "desktop_refresh_tested": false,
+  "tmdl_deserialization": "PASS",
+  "tmdl_validator": "Microsoft.AnalysisServices 19.114.12",
+  "dax_evaluated": false,
+  "shared_data_path": "required parameter, configured only in local copy"
+}

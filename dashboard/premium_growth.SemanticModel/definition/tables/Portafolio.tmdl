@@ -1,0 +1,20 @@
+table Portafolio
+	lineageTag: f3c303f1-0ef9-48fa-8ee3-6a972142b200
+
+	column Opcion
+		dataType: string
+		lineageTag: f8e0cc8c-c773-4273-ba67-b640d2b9ca0b
+		summarizeBy: none
+		sourceColumn: [Opcion]
+		sortByColumn: Orden
+
+	column Orden
+		dataType: int64
+		isHidden
+		lineageTag: e00820ec-7ee1-4474-b0da-64c819fd6353
+		summarizeBy: none
+		sourceColumn: [Orden]
+
+	partition Portafolio = calculated
+		mode: import
+		source = DATATABLE("Opcion", STRING, "Orden", INTEGER, {{"Total portafolio",0},{"Sin Tecnologías Bajío",1},{"Solo Tecnologías Bajío",2}})

@@ -1,0 +1,14 @@
+table ClientesPortafolio
+	isHidden
+	lineageTag: 46deefa0-3fd3-4a67-8b0d-7c8afe361326
+
+	column ClientId
+		dataType: string
+		isKey
+		lineageTag: f6ab687f-bc38-414c-a7f7-46a03e8feb97
+		summarizeBy: none
+		sourceColumn: [ClientId]
+
+	partition ClientesPortafolio = calculated
+		mode: import
+		source = DISTINCT(SELECTCOLUMNS(Polizas,"ClientId",Polizas[ClientId]))

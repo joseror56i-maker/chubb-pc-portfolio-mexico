@@ -1,0 +1,16 @@
+relationship ddfa5abb-3492-48cc-be4b-d55e02331b7c
+	fromColumn: Polizas.policy_start_date
+	toColumn: Calendario.Fecha
+
+relationship 71f6f5fa-c5b5-4ba6-b6c2-58be54b7b6d9
+	fromColumn: AlcanceClientes.Opcion
+	toColumn: Portafolio.Opcion
+
+relationship d66e31b0-fc44-4426-82b5-f5ac6792df03
+	crossFilteringBehavior: bothDirections
+	fromColumn: AlcanceClientes.ClientId
+	toColumn: ClientesPortafolio.ClientId
+
+relationship 3e92e436-cb2b-4dc8-8860-9aee6271c6d9
+	fromColumn: Polizas.ClientId
+	toColumn: ClientesPortafolio.ClientId

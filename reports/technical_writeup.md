@@ -11,8 +11,7 @@ portfolio totals.
 
 Snapshot counts and integrity checks were independently recalculated for this
 package. Historical experiments below are reported by the candidate; their
-notebooks have been reviewed, but original inputs and saved external evidence
-are still missing. Evaluation/acceptance corrections require a fresh run. Details are preserved in the
+notebooks have been reviewed, and original-to-reporting lineage is verified. Evaluation/acceptance corrections require a fresh run. Details are preserved in the
 [appendix](technical_appendix.md).
 
 ## Internal evidence first
@@ -81,7 +80,8 @@ The proposed time basis for written premium is policy start date, with complete
 start-date years 2021-2024. End dates extend to 2026 and should not accidentally
 define the growth calendar. Currency is not specified: MXN is an assumption and
 USD measure names would require documented conversion. The Power BI model and
-actual DAX have not yet been reviewed.
+the project definition and DAX source have been reviewed locally. Desktop execution
+and refresh validation are still pending.
 
 ## Further work
 

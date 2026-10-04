@@ -1,0 +1,25 @@
+table AlcanceClientes
+	isHidden
+	lineageTag: 6e566227-7ddc-407e-a80f-f9342a411a8a
+
+	column Opcion
+		dataType: string
+		lineageTag: 6c80924f-99f0-4842-8a68-0fc2973deadf
+		summarizeBy: none
+		sourceColumn: [Opcion]
+
+	column ClientId
+		dataType: string
+		lineageTag: 4defe2b4-9276-4d40-853a-3b2c6cc9309d
+		summarizeBy: none
+		sourceColumn: [ClientId]
+
+	partition AlcanceClientes = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS(
+				    FILTER(CROSSJOIN(Portafolio,ClientesPortafolio),
+				        Portafolio[Orden]=0 ||
+				        (Portafolio[Orden]=1 && ClientesPortafolio[ClientId]<>"TRXC402501XTH") ||
+				        (Portafolio[Orden]=2 && ClientesPortafolio[ClientId]="TRXC402501XTH")),
+				    "Opcion",Portafolio[Opcion],"ClientId",ClientesPortafolio[ClientId])

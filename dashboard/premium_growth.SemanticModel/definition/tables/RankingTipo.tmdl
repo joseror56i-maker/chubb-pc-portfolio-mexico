@@ -1,0 +1,12 @@
+table RankingTipo
+	lineageTag: 4bff6986-465e-4965-95d8-7d3eb36d2637
+
+	column Tipo
+		dataType: string
+		lineageTag: 06e15604-6642-4cef-8f39-56b196c72a6f
+		summarizeBy: none
+		sourceColumn: [Tipo]
+
+	partition RankingTipo = calculated
+		mode: import
+		source = DATATABLE("Tipo",STRING,{{"Importe"},{"Porcentaje"}})

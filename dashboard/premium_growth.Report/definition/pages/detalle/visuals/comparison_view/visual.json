@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "comparison_view",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 20000,
+    "height": 1024,
+    "width": 1536
+  },
+  "visualGroup": {
+    "displayName": "comparison_view",
+    "groupMode": "ScaleMode"
+  }
+}
