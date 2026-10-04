@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "file": "premium_growth.pbix",
+  "tables": 12,
+  "measures": 70.0,
+  "external_file_dependencies": false,
+  "embedded_snapshot": true,
+  "totals": {
+    "[Policies]": 50441,
+    "[Clients]": 8565,
+    "[Premium]": 23465362773.1,
+    "[Rows]": 50441,
+    "[Unresolved]": 1356
+  },
+  "yearly": [
+    {
+      "Calendario[Anio]": 2021,
+      "[Policies]": 12604,
+      "[Clients]": 4821,
+      "[Premium]": 5708419255.28,
+      "[Growth]": null,
+      "[GrowthPct]": null
+    },
+    {
+      "Calendario[Anio]": 2022,
+      "[Policies]": 12608,
+      "[Clients]": 4791,
+      "[Premium]": 5880996179.68,
+      "[Growth]": 172576924.4,
+      "[GrowthPct]": 0.03023199885684203
+    },
+    {
+      "Calendario[Anio]": 2023,
+      "[Policies]": 12573,
+      "[Clients]": 4801,
+      "[Premium]": 5940216680.53,
+      "[Growth]": 59220500.85,
+      "[GrowthPct]": 0.01006980774016118
+    },
+    {
+      "Calendario[Anio]": 2024,
+      "[Policies]": 12656,
+      "[Clients]": 4822,
+      "[Premium]": 5935730657.61,
+      "[Growth]": -4486022.92,
+      "[GrowthPct]": -0.0007551951656416255
+    }
+  ],
+  "methods": [
+    {
+      "Polizas[fill_method]": "client_id",
+      "[Policies]": 16159,
+      "[Premium]": 4653199223.13
+    },
+    {
+      "Polizas[fill_method]": "llm_external",
+      "[Policies]": 116,
+      "[Premium]": 178918077.31
+    },
+    {
+      "Polizas[fill_method]": "original",
+      "[Policies]": 32810,
+      "[Premium]": 18164351468.19
+    },
+    {
+      "Polizas[fill_method]": "unresolved",
+      "[Policies]": 1356,
+      "[Premium]": 468894004.47
+    }
+  ],
+  "checked_date": "2026-10-04",
+  "independent_reopen": true,
+  "isolated_folder_contains_only_pbix": true,
+  "desktop_refresh_tested": true,
+  "both_report_pages_rendered": true,
+  "complete_visual_acceptance": "candidate review",
+  "csv_sha256": "e29678677fe570b57f13aeec85cc51f5e4bcb477b51f5fcc8054794813a905c3",
+  "pbix_sha256": "a356667772fb5b627a10573146a741cf556f135eceb28ab5af1c02bd5b8bed4f",
+  "csv_yearly_controls_reconciled": true
+}

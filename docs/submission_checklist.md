@@ -10,7 +10,7 @@ README, reporting CSV, quality report, complete dashboard and short write-up.
 | README | Setup, layout, sequence, decisions and assumptions | Present; keep aligned with future changes |
 | Filled dataset with per-row method | Unchanged submitted snapshot | Original lineage reconciled; external evidence audit still separate |
 | Fill quality report | Counts and amounts verified | Rerun corrected research and review external correctness |
-| Interactive premium/growth dashboard | PBIP integrated, portable setup and dependency checks | Desktop refresh/render and preview |
+| Interactive premium/growth dashboard | Standalone PBIX, embedded data, independent reopen/refresh and DAX controls | Candidate visual/business acceptance |
 | Short technical write-up | Present with historical appendix | Attach fresh experiment outputs |
 
 Before final submission:
@@ -20,7 +20,7 @@ Before final submission:
   industries, same-client recovery and canonical names.
 - Record Databricks runtime, package versions, seeds, holdout and experiment outputs.
 - Supply/audit the external mapping; treat historical external fills as weak evidence.
-- Open/refresh the packaged dashboard in Desktop and capture an actual preview.
-- Reconcile BI totals: 50,441 policies; 8,565 clients; premium 23,465,362,773.10.
+- Independent PBIX open/refresh and both pages pass; finish visual/business acceptance.
+- BI totals reconciled: 50,441 policies; 8,565 clients; premium 23,465,362,773.10.
 - Validate equivalent growth periods, currency assumption and the dominant-client view.
 - Keep credentials, raw private inputs and machine-specific config outside Git.

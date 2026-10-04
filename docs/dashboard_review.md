@@ -1,56 +1,43 @@
 # Revisión del dashboard
 
-Evidencia local del proyecto y los CSV; revisión del 2026-10-04. El proyecto tiene
-dos páginas, 12 tablas, 70 medidas y 165 contenedores visuales, incluyendo formas,
-texto y grupos. Los recursos registrados y las referencias del reporte existen.
+## Entrega utilizable y comprobación real
 
-## Preparación realizada
+`dashboard/premium_growth.pbix` fue guardado desde Power BI Desktop después de
+cargar el modelo. Se abrió una copia en otra carpeta que contenía sólo el PBIX,
+se actualizó y se comprobaron Overview y Detalle. La consulta incorpora el CSV
+comprimido en el modelo; no usa File.Contents, rutas personales ni credenciales.
 
-- Nombre público: `dashboard/premium_growth.pbip`, con carpetas `.Report` y
-  `.SemanticModel` del mismo nombre y enlaces relativos actualizados.
-- La consulta usa el parámetro requerido `ReportingCsvPath`. El helper genera una
-  copia local configurada según donde se descargó el repositorio; el proyecto
-  compartido no conserva rutas personales.
-- Tema registrado con un nombre breve y recursos gráficos incluidos.
-- Exclusión de `cache.abf`, `localSettings.json`, queries pendientes, respaldos
-  y archivos de referencia que no utiliza el reporte.
-- No se cambiaron las fórmulas DAX, las páginas ni las prioridades de ranking.
-- Se verificó la definición TMDL usando el deserializador oficial Microsoft TOM
-  19.114.12: 12 tablas, 70 medidas y el parámetro reconocidos correctamente.
+Las consultas DAX del modelo reabierto reconciliaron 50,441 pólizas, 8,565 clientes,
+1,356 Unresolved y primas de 23,465,362,773.10. Los totales, crecimiento y tasas
+anuales 2021–2024 coinciden con los controles CSV independientes. Evidencia en
+[dashboard_runtime_validation.json](../reports/dashboard_runtime_validation.json).
 
-## Riesgos de descarga y de uso
+El modelo tiene 12 tablas y 70 medidas. Se conservaron fórmulas DAX, páginas,
+ranking, recursos gráficos y selecciones del reporte. El CSV final no cambió.
+Los controles estáticos y la deserialización Microsoft TOM permanecen disponibles
+en dashboard_validation.json; esa evidencia se distingue de las pruebas del PBIX.
 
-| Riesgo | Efecto | Forma de manejarlo |
-| --- | --- | --- |
-| Descargar solo el PBIP | Faltan reporte, modelo, imágenes y datos | Descargar/clonar el repositorio completo y conservar estructura |
-| CSV en una ubicación distinta | Refresh no encuentra el archivo | Ejecutar setup o configurar ReportingCsvPath en Desktop |
-| Caché omitida | Visuales sin datos hasta la primera actualización | Refresh tras configurar el CSV; no publicar una caché personal |
-| Versión Desktop incompatible / paths extensos | Proyecto no abre o no reconoce el formato | Desktop reciente y ruta corta en Windows |
-| Calendario fijo 2020–2024 | Policies posteriores quedarían fuera de la dimensión de fechas | Extender calendario cuando cambie el periodo del dataset |
-| Comparar YTD contra total histórico | Reconciliación aparentemente incorrecta | Usar mismo corte y filtros; controles por año disponibles |
-| Crecimiento sin base LY | Tasa indefinida | Mantener blank/Sin base LY, como indica el modelo |
-| Filtro de cliente dominante basado en ID explícito | Una nueva cartera puede tener otra concentración | Revisar criterio al sustituir el dataset |
-| Datos o selecciones guardados en PBIR | El proyecto puede revelar valores de filtros | Revisión local de metadata y publicación bajo el alcance autorizado |
+## Uso y riesgos restantes
 
-La fecha de negocio está ligada a `policy_start_date`; el fin de póliza no dirige
-el calendario. El cutoff está separado de la tabla de fechas y las medidas YTD
-usan su fecha máxima. La dimensión de clientes y las etiquetas ID+nombre evitan
-confundir empresas con nombres iguales. El selector de concentración conserva
-una opción de cartera total y opciones de sensibilidad.
+| Situación | Efecto y manejo |
+| --- | --- |
+| Abrir el PBIX entregable | Los datos ya están cargados; no se requiere el CSV |
+| Mover o actualizar el PBIX | Refresh usa la instantánea integrada; no depende de una carpeta externa |
+| Incorporar datos nuevos | Generar proyecto con build_standalone.py, revisar fechas/datos, cargar y exportar de nuevo en Desktop |
+| Editar el PBIP de desarrollo | Mantener Report/SemanticModel juntos y configurar ReportingCsvPath mediante setup_dashboard.py |
+| Comparar tarjetas con total histórico | Aplicar el mismo año/corte y filtros; los YTD no son totales de cuatro años |
+| Selecciones guardadas | Corte diciembre 2023 y sensibilidad sin cliente dominante; elegir Total portfolio para cifras oficiales |
+| Calendario y concentración | Revisar cobertura temporal y cliente explícito cuando cambie la cartera |
+| LY ausente/cero | Mantener blank/Sin base LY; no forzar porcentajes |
+| Distribuir PBIX | Incluye los datos completos; mismo alcance autorizado que el CSV |
 
-Se conservaron las 1,356 pólizas `Unresolved` del dataset final. Los campos
-`fill_method` y `confidence_level` permiten identificar la parte externa de la
-solución. Los importes se presentan en unidades de origen; MXN sigue siendo un
-supuesto, no una conversión confirmada.
+La fecha de negocio es policy_start_date. MXN sigue siendo un supuesto;
+no se afirma conversión a USD. ClientId define identidad y las etiquetas combinan
+ID+nombre. Las pólizas Unresolved y la procedencia externa permanecen visibles.
 
-## Verificación pendiente en Power BI Desktop
+La apertura, actualización y reconciliación DAX ya se comprobaron. La aceptación
+completa de legibilidad, filtros múltiples, bookmarks y claridad para negocio
+queda a cargo del candidato. No se publicó en Power BI Service.
 
-La sintaxis TMDL, referencias y datos se verificaron localmente. La librería de
-metadata no calcula DAX, no carga el motor de refresh ni renderiza visuales.
-Abrir la copia preparada, actualizar, revisar año 2024 y Last Year contra los
-controles CSV, probar filtros entre páginas y alternar los dos bookmarks de detalle.
-Guardar/exportar PBIX o capturar una preview solamente desde ese reporte real.
-
-Las [referencias de proyecto](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-report)
-y el comportamiento de [modelos sin caché](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-dataset)
-están documentados por Microsoft.
+Referencias: [proyectos y Save as nativo](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview),
+[Binary.Decompress](https://learn.microsoft.com/en-us/powerquery-m/binary-decompress).

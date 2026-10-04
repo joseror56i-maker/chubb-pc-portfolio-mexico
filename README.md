@@ -20,7 +20,7 @@ Modeling and live enrichment have separate environments and execution controls.
 | Quality report and short write-up | Reconciled to the snapshot; historical experiment scores identified |
 | Local processing | End-to-end fixture run and unit tests pass with Python 3.12.14 |
 | Databricks and original-data reproduction | Original input included and deterministic lineage checked; workspace/research execution pending |
-| Interactive dashboard | PBIP project included; Desktop refresh/visual validation and preview pending |
+| Interactive dashboard | Standalone PBIX included; independent reopen/refresh and DAX reconciliation pass |
 
 The original input and the complete Power BI source project are included.
 Row identity, amounts, dates, original industries, same-client fills and normalized
@@ -59,7 +59,7 @@ notebooks/research/     Optional distributed EDA and live external research
 tests/                  Identity, evidence, lineage, export and snapshot checks
 reports/                Submission reports and verified snapshot diagnostics
 docs/                   Runbook, code review, dictionary and submission checklist
-dashboard/              Complete PBIP, TMDL model and portable setup helper
+dashboard/              Standalone PBIX, editable PBIP/TMDL and setup/build helpers
 assets/                 Place for an actual dashboard preview
 work/runs/              Generated run artifacts; excluded from Git
 ```
@@ -133,20 +133,19 @@ workspace capabilities and explicit enablement; see the [runbook](docs/runbook.m
   is established. One client represents 18.41% of premium; keep official totals and
   show a clearly labeled concentration sensitivity if useful.
 - Written-premium timing uses policy start date (2021–2024). DAX source has been
-  reviewed; its values, same-period growth and refresh still need Desktop execution.
+  reviewed; evaluated totals and full-year growth match CSV controls in Desktop.
 
 ## Open the dashboard
 
-Download the full repository ZIP or clone it. From the extracted root:
+Download [dashboard/premium_growth.pbix](dashboard/premium_growth.pbix) using
+GitHub's Download raw file button, or extract the full repository ZIP. Open the
+PBIX in Power BI Desktop: data, visuals and model are included, and Refresh
+reads the embedded snapshot. No external CSV or personal path is required.
 
-```powershell
-python dashboard/setup_dashboard.py
-```
-
-Open `work/pbi/premium_growth.pbip` in Power BI Desktop and select Refresh. The
-helper sets the CSV parameter in an ignored local copy; the shared project retains
-portable report/model references. See [dashboard instructions](dashboard/README.md)
-and [download/refresh review](docs/dashboard_review.md).
+The editable PBIP remains available for development. The setup helper configures
+an external-CSV project; the standalone builder embeds the reviewed CSV before
+native Desktop export. See [dashboard instructions](dashboard/README.md) and
+[download/refresh review](docs/dashboard_review.md).
 
 The reporting snapshot's bytes are unchanged and its fingerprint is in the data
 contract. This is a candidate submission, not an official Chubb product; no

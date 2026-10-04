@@ -8,7 +8,7 @@
 | External research and replay | `04_replay_external_evidence.py`, optional live research | `src/data_processing/external.py` and `src/enrichment/` |
 | Reporting names and export | `05_build_reporting_dataset.py` | `names.py`, runtime CSV export and reporting validator |
 | Quality checks | `06_validate_reporting_dataset.ipynb` | CSV contract, original-lineage and project-dependency tests |
-| Interactive reporting | `dashboard/premium_growth.pbip` | Report definitions, TMDL model and portable setup helper |
+| Interactive reporting | `dashboard/premium_growth.pbix` and editable PBIP | Self-contained viewer, report definitions, TMDL and setup/build helpers |
 
 Names are normalized within ClientId and retain reference-policy lineage.
 ML predictions do not enter the final industry field. External entity research
