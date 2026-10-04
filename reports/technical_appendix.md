@@ -1,6 +1,10 @@
 # Detailed Technical Appendix
 ## P&C Portfolio Mexico — Industry Recovery & Premium Growth Dashboard
 
+> Historical candidate narrative: the supplied source has been reviewed and corrected,
+> but the following experiment results have not been regenerated. See the code
+> review for changes to splits and external acceptance.
+
 ## 1. Objective
 
 The project had two connected objectives:

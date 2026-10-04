@@ -11,7 +11,8 @@ portfolio totals.
 
 Snapshot counts and integrity checks were independently recalculated for this
 package. Historical experiments below are reported by the candidate; their
-notebooks and raw inputs have not yet been provided. Details are preserved in the
+notebooks have been reviewed, but original inputs and saved external evidence
+are still missing. Evaluation/acceptance corrections require a fresh run. Details are preserved in the
 [appendix](technical_appendix.md).
 
 ## Internal evidence first
@@ -84,7 +85,7 @@ actual DAX have not yet been reviewed.
 
 ## Further work
 
-Complete source review and raw-to-final reconciliation, audit external evidence,
+Complete original-data execution and raw-to-final reconciliation, audit external evidence,
 and validate Power BI connections, date relationships, totals and growth
 denominators after download. With richer client identifiers, verified business
 attributes or SCIAN/NAICS mappings, rerun the same unseen-client benchmark rather

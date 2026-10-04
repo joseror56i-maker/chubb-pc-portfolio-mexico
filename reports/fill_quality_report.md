@@ -4,7 +4,8 @@
 
 These counts and monetary totals were recalculated from the supplied reporting
 snapshot on 2026-10-04. Historical validation and model results are candidate-
-reported until the raw input and original code are available.
+reported until the original input and saved evidence are available. The source
+code has now been reviewed; corrected evaluation and acceptance rules require reruns.
 
 | Measure | Result |
 | --- | ---: |
@@ -69,7 +70,7 @@ are qualitative provenance labels, not calibrated probabilities.
 
 **Unresolved.** The 1,356 rows remain in the dataset and monetary totals. They are
 not dropped or assigned a majority class. ML predictions were reportedly not used
-for final fills; reproduction requires the original notebooks.
+for final fills; reproduction requires original input, saved evidence and execution of the reviewed notebooks.
 
 ## Integrity checks performed
 

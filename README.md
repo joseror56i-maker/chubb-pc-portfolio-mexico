@@ -1,34 +1,36 @@
 # Mexico P&C Portfolio: Industry Recovery and Premium Growth
 
-Repository: [joseror56i-maker/chubb-pc-portfolio-mexico](https://github.com/joseror56i-maker/chubb-pc-portfolio-mexico).
+[![Quality checks](https://github.com/joseror56i-maker/chubb-pc-portfolio-mexico/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/joseror56i-maker/chubb-pc-portfolio-mexico/actions/workflows/quality-checks.yml)
 
 A technical challenge solution for a Mexican Property & Casualty portfolio.
-The supplied reporting snapshot contains **50,441 policies** and **8,565 clients**.
-Industry is assigned for **97.31% of policy rows**. The remaining **1,356 rows**
-are explicitly labeled `Unresolved` and remain in portfolio totals.
+The submitted snapshot has **50,441 policies**, **8,565 clients** and **97.31% industry coverage**.
+Its **1,356 unresolved policies remain in portfolio totals**.
 
-The approach prioritizes same-client evidence, tests whether models generalize to
-unseen clients, and retains uncertainty when the evidence is insufficient.
+The candidate's Databricks exports have been reviewed and organized into shared
+Python processing modules, sequential notebooks and optional research. The core
+runs in **Visual Studio Code or Databricks without third-party Python packages**.
+Modeling and live enrichment have separate environments and execution controls.
 
-## Submission status
+## Deliverables and execution scope
 
-| Deliverable | Current status |
+| Deliverable | Status |
 | --- | --- |
-| GitHub repository | Initial packaging stage; processing, modeling and dashboard areas are separated |
-| README | Available with setup, assumptions and honest execution limits |
-| Filled dataset | `data/processed/portfolio_reporting.csv`; supplied snapshot, renamed without changing its bytes |
-| Fill quality report | Available and reconciled against the reporting CSV |
-| Interactive dashboard | Awaiting the candidate's Power BI file and preview |
-| Short write-up | Available; detailed analytical notes retained in an appendix |
+| Public GitHub repository | Reviewed processing, modeling and enrichment code included |
+| Filled dataset | `data/processed/portfolio_reporting.csv`; supplied snapshot, byte-for-byte preserved |
+| Quality report and short write-up | Reconciled to the snapshot; historical experiment scores identified |
+| Local processing | End-to-end fixture run and unit tests pass with Python 3.12.14 |
+| Databricks and original-data reproduction | Source prepared; requires original input, saved evidence and workspace execution |
+| Interactive dashboard | Awaiting PBIX/PBIP and preview |
 
-**The original recovery and modeling source has not yet been supplied.** The
-validation script and notebook in this package are new quality controls, not a
-replacement for that source. They validate the final CSV; they do not reproduce
-the fill process, the reported modeling experiments, or the dashboard.
+**The code ZIP did not include the original input or saved external mappings.**
+Do not use the filled reporting CSV as raw data; it has already overwritten industry.
+The refactored pipeline rejects that input. Historical ML scores and the 116
+external fills have not been reproduced during packaging. Review changes to
+evaluation and external acceptance mean a new run can differ from the snapshot.
 
-## Results
+## Results in the submitted snapshot
 
-| Method (`fill_method`) | Policies | Confidence label |
+| Method | Policies | Confidence tier |
 | --- | ---: | --- |
 | `original` | 32,810 | `high` |
 | `client_id` | 16,159 | `high` |
@@ -36,142 +38,107 @@ the fill process, the reported modeling experiments, or the dashboard.
 | `unresolved` | 1,356 | `unresolved` |
 | **Total** | **50,441** | |
 
-The method counts imply 17,631 initially missing rows and 16,275 recovered rows
-(92.31% of the originally missing population). That reconciliation assumes the
-supplied method flags accurately preserve provenance. Original-value preservation
-cannot be independently checked until the raw input and pipeline are available.
+The flags imply 17,631 initially missing rows and 16,275 recovered rows (92.31%).
+That reconciliation depends on the supplied provenance flags. Original-label
+preservation still needs reconciliation against the original input.
+See the [quality report](reports/fill_quality_report.md),
+[short write-up](reports/technical_writeup.md) and [appendix](reports/technical_appendix.md).
 
-See the [fill quality report](reports/fill_quality_report.md),
-[short write-up](reports/technical_writeup.md), and
-[detailed appendix](reports/technical_appendix.md).
-
-## Repository layout
+## Project layout
 
 ```text
-chubb-pc-portfolio-mexico/
-├── README.md
-├── requirements.txt
-├── .python-version
-├── .gitignore
-├── .gitattributes
-├── .github/workflows/quality-checks.yml
-├── config/
-│   └── portfolio_contract.json
-├── data/
-│   ├── raw/README.md
-│   └── processed/portfolio_reporting.csv
-├── src/
-│   ├── data_processing/validate_portfolio.py
-│   └── modeling/README.md
-├── notebooks/
-│   ├── README.md
-│   └── 00_validate_reporting_dataset.ipynb
-├── tests/
-│   └── test_validate_portfolio.py
-├── reports/
-│   ├── fill_quality_report.md
-│   ├── technical_writeup.md
-│   ├── technical_appendix.md
-│   └── reporting_validation.json
-├── docs/
-│   ├── data_dictionary.md
-│   ├── runbook.md
-│   ├── review_notes.md
-│   └── submission_checklist.md
-├── dashboard/README.md
-└── assets/README.md
+config/                 Data contract and portable pipeline example
+data/raw/               Original input; excluded from Git by default
+data/processed/          Unchanged submitted reporting snapshot
+src/data_processing/    Recovery, evidence replay, name normalization, I/O, validation
+src/modeling/           Reusable statistical diagnostic
+src/enrichment/         Candidate prompt/schema and optional Databricks service adapter
+src/pipeline.py         Local CLI using the same functions as notebooks
+notebooks/01..06         Sequential Databricks source notebooks and final validation
+notebooks/research/     Optional distributed EDA and live external research
+tests/                  Identity, evidence, lineage, export and snapshot checks
+reports/                Submission reports and verified snapshot diagnostics
+docs/                   Runbook, code review, dictionary and submission checklist
+dashboard/              Dashboard packaging and refresh guidance
+assets/                 Place for an actual dashboard preview
+work/runs/              Generated run artifacts; excluded from Git
 ```
 
-## Run locally with Python / Visual Studio Code
+## Processing sequence
 
-The available validator uses only the Python standard library and was tested with
-**Python 3.12.14**. No pip packages are needed for this stage. Open the repository
-folder in Visual Studio Code and select your Python interpreter.
+```mermaid
+flowchart LR
+    A[Original portfolio] --> B[01 EDA]
+    B --> C[02 Recovery by ClientId]
+    C --> D[03 Optional ML evaluation]
+    C --> E[04 Saved external evidence]
+    E --> F[05 Reporting CSV and name lineage]
+    F --> G[06 Quality checks]
+    G --> H[Power BI]
+```
 
-From the repository root:
+ML is a feasibility experiment; its predictions never enter the fill pipeline.
+External replay makes no model/web calls. Without a reviewed cache, residual
+clients remain `Unresolved`. Optional live research is a separate notebook.
+
+## Quick start: Visual Studio Code / Python
+
+Open the complete repository folder and select Python 3.12. From its root:
 
 ```powershell
-python src/data_processing/validate_portfolio.py --verify-snapshot --output work/quality_check.json
 python -m unittest discover -s tests -v
+python src/data_processing/validate_portfolio.py --verify-snapshot
 ```
 
-The command exits with `0` for a valid file, `1` for failed data checks, and `2` for
-an unreadable input or invalid arguments. `--verify-snapshot` checks the exact
-submitted bytes and baseline totals. For another portfolio, use an explicit input
-and omit that flag; update the contract deliberately for a new taxonomy.
+These work immediately on the included files. To run recovery after obtaining the
+original input, put it at `data/raw/portfolio_original.csv`, then:
 
 ```powershell
-python src/data_processing/validate_portfolio.py --input "path/to/portfolio.csv" --contract config/portfolio_contract.json
+Copy-Item config/pipeline.example.json config/pipeline.local.json
+python -m src.pipeline --config config/pipeline.local.json
 ```
 
-GitHub Actions runs the same tests and snapshot checks on pushes and pull requests.
+Edit the private config as needed; relative paths are resolved against its own
+directory. Use a fresh `output_dir` for each run. Output includes stage CSVs,
+aggregate diagnostics, external audit, name lineage, final validation and an
+artifact fingerprint manifest. The submitted snapshot is protected from overwrite.
 
-The source CSV is never modified. Generated diagnostics contain aggregate counts
-and CSV line numbers, not client identifiers.
+## Databricks
 
-## Run on Databricks
+Clone into a Git folder. Create the same private config with either `input_path`
+for a Volume CSV or `input_table` for the original Spark table. Use a writable
+Unity Catalog Volume as `output_dir`. Run notebooks **01 → 02 → optional 03 → 04 → 05 → 06**.
+The core collects at most **100,000 rows** on the driver; it targets this 50k-policy
+challenge. Larger portfolios need a distributed implementation of these rules.
 
-Open this repository in a Databricks Git folder and use
-`notebooks/00_validate_reporting_dataset.ipynb`. It searches the notebook's working
-directory and parents for the project contract. The bundled reporting CSV can be
-validated from the checked-out folder; a Unity Catalog Volume path can be supplied
-as an alternative input.
+Modeling uses optional pins in `requirements-modeling.txt`. Local Spark research
+also needs `requirements-spark-local.txt` and Java 17+. These are proposed research
+pins, not a recovered original environment lock. Live `ai_enrich` needs compatible
+workspace capabilities and explicit enablement; see the [runbook](docs/runbook.md).
 
-This is a standard Python validation for the 8.24 MiB snapshot. It runs on the
-driver and is not a distributed Spark recovery job. Execution on an actual
-Databricks workspace is still pending. See the [runbook](docs/runbook.md).
+## Decisions and limitations
 
-## Analytical decisions and limits
+- Identity is `ClientId`. In the snapshot, 2,310 exact names are shared across
+  client IDs. Names are for display and never merge separate clients.
+- Conflicting original industries stop recovery; one mapping per client prevents
+  join multiplication. Original fields survive intermediate exports.
+- Reviewed external replay uses the same rule as backtesting: high/high declared
+  confidence, official verification, source metadata, valid taxonomy and no error.
+  Accepted candidates remain `medium_low`. This is stricter than historical fills.
+- The historical external backtest had zero correct labels among four accepted
+  candidates out of 45 evaluated clients. It does not establish external accuracy.
+- Confidence tiers describe provenance, not calibrated probabilities. Same-client
+  leave-one-out assesses internal recoverability, not unseen-client performance.
+- Currency is unspecified; **MXN is the candidate's assumption**. No USD conversion
+  is established. One client represents 18.41% of premium; keep official totals and
+  show a clearly labeled concentration sensitivity if useful.
+- Proposed written-premium timing uses policy start date (2021–2024). Actual DAX,
+  same-period growth and dashboard refresh remain to be reviewed.
 
-- `ClientId` is the identity key; `client_name` is display text. In this snapshot,
-  2,310 exact display names are shared by multiple client IDs. Never join or count
-  clients by name alone.
-- The source reports describe no sufficient unseen-client predictive signal.
-  Model predictions were reportedly excluded from the final industry field.
-  Those experiments still need their source, seeds, splits and dependencies.
-- External enrichment is a low-confidence candidate layer. The reported backtest
-  had zero matches among four accepted candidates (45 clients evaluated). Its
-  correctness is not established; review its evidence and show sensitivity with
-  these 116 rows treated as unresolved.
-- `high`, `medium_low` and `low` are provenance tiers, not calibrated probabilities.
-- Currency is not specified by the challenge or a CSV column. **MXN is the
-  candidate's assumption**, not independently verified metadata. No USD conversion
-  has been established.
-- A dominant client accounts for 10,189 policies and 18.41% of premium. Keep it in
-  official totals and offer a clearly labeled concentration sensitivity view.
-- Use policy start date as the proposed written-premium time basis, subject to
-  confirmation in the Power BI model. Start dates span 2021-2024; end dates extend
-  to 2026. Growth must compare equivalent periods and handle absent prior-year
-  values explicitly.
+The CSV was renamed from `Client_Name_Normalization_Reporting_FINAL_v2.csv` without
+changing bytes. Its hash is in `config/portfolio_contract.json`. This is a candidate
+submission, not an official Chubb product; no code/data license has been assumed.
 
-## Dashboard
-
-The Power BI file has not yet been supplied. Intended outputs are Premium and
-Premium Growth over time, filterable by industry and location. Coverage and client
-filters may extend the required views. No DAX measure or connection has been
-validated at this stage.
-
-See [dashboard packaging and refresh requirements](dashboard/README.md). Add the
-actual preview to `assets/dashboard_preview.png` and the reviewed downloadable file
-to `dashboard/premium_growth_dashboard.pbix` when available.
-
-## Data provenance and publication
-
-The processed file was supplied as
-`Client_Name_Normalization_Reporting_FINAL_v2.csv` and copied under the shorter
-name `portfolio_reporting.csv`. Column names, values, row order, encoding and
-bytes are unchanged. The snapshot fingerprint is in
-`config/portfolio_contract.json`.
-
-The challenge requests a public repository. Publication must account for the
-dataset's client identifiers, client names and policy amounts, as well as any data
-embedded in a PBIX. No open-source or data license has been assumed. This project
-is a candidate submission and is not an official Chubb product.
-
-## Review and remaining work
-
-The [review notes](docs/review_notes.md) explain the documentation corrections and
-unverified claims. The [submission checklist](docs/submission_checklist.md) maps
-the six deliverables to the remaining work. The original raw input, notebooks,
-external-evidence mapping and Power BI file are needed to complete reproducibility
-and the end-to-end review.
+See [code review and corrections](docs/review_notes.md),
+[source mapping](docs/source_inventory.md), [execution instructions](docs/runbook.md)
+and the [remaining submission checklist](docs/submission_checklist.md).

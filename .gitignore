@@ -17,6 +17,9 @@ venv/
 data/raw/*
 !data/raw/README.md
 work/
+config/pipeline.local.json
+data/interim/
+catboost_info/
 *.log
 
 # Power BI local caches, locks and backups

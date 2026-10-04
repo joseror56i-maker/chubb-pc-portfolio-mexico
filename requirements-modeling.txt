@@ -1,0 +1,11 @@
+# Optional reviewed research environment for Python 3.12.
+# These are proposed pins, not the candidate's original Databricks pip freeze.
+# Training/runtime installation still needs verification with the original input.
+numpy==2.2.6
+pandas==2.2.3
+scipy==1.15.3
+scikit-learn==1.7.0
+matplotlib==3.10.3
+lightgbm==4.6.0
+xgboost==3.0.2
+catboost==1.2.8

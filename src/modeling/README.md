@@ -1,9 +1,12 @@
-# Modeling source
+# Modeling research
 
-The candidate's modeling code has not yet been supplied. No model is deployed in
-this repository. Add reviewed reusable feature engineering, grouped validation and
-benchmark functions here when the original notebooks are available.
+`diagnostics.py` contains the missing correlation-ratio function as reusable,
+dependency-free code. The complete reviewed experiment is in
+`notebooks/03_industry_modeling.py`, retaining the candidate's diagnostic narrative
+and model comparisons. Notebook orchestration makes the split and feature context
+visible; fitted preprocessing stays inside the benchmark functions.
 
-Keep one client in one validation group. Fit preprocessing only on training folds.
-Record random seeds, package versions, fold definitions and baseline metrics.
-Model experiments must not overwrite the final reporting industry field.
+Models never feed reporting industry. Historical scores were not rerun; corrected
+holdout isolation, fold scaling and deterministic ordering require fresh evaluation.
+Optional package pins are in `requirements-modeling.txt`; the original environment
+export is still needed. See the execution runbook and review notes.

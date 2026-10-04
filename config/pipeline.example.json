@@ -1,0 +1,7 @@
+{
+  "input_path": "../data/raw/portfolio_original.csv",
+  "input_table": "",
+  "output_dir": "../work/runs/local_001",
+  "external_results_path": "",
+  "contract_path": "portfolio_contract.json"
+}

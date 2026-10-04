@@ -1,0 +1,4 @@
+# Only for running the optional ML notebook as a Python script in VS Code.
+# Requires a compatible Java 17+ installation. Databricks supplies its own Spark.
+-r requirements-modeling.txt
+pyspark==4.0.1

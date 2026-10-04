@@ -1,3 +1,3 @@
-# Reporting validation uses only the Python standard library.
-# Tested with Python 3.12.14; no pip packages are required for the current code.
-# Pin the actual processing/modeling dependencies after reviewing the source notebooks.
+# Core recovery, evidence replay, reporting and validation use the standard library.
+# Verified locally with Python 3.12.14; no pip packages are needed for the core.
+# Optional research dependencies: requirements-modeling.txt / requirements-spark-local.txt.
